@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "symptomWeights": {
+    "chest_pain": 9,
+    "difficulty_breathing": 9,
+    "unconscious": 10,
+    "seizure": 10,
+    "severe_bleeding": 8,
+    "stroke_symptoms": 10,
+    "severe_allergic_reaction": 9,
+    "high_fever": 5,
+    "mild_headache": 1,
+    "nausea": 2,
+    "dizziness": 3,
+    "confusion": 7,
+    "rapid_heartrate": 6,
+    "low_oxygen": 8
+  },
+  "modifierWeights": {
+    "age_under_2": 4,
+    "age_over_65": 3,
+    "pregnant": 3,
+    "diabetic": 3,
+    "heart_condition": 4,
+    "immunocompromised": 4,
+    "sudden_onset": 2,
+    "getting_worse": 3,
+    "instinct_override": 2
+  },
+  "hardOverrides": [
+    "unconscious",
+    "difficulty_breathing",
+    "chest_pain",
+    "stroke_symptoms",
+    "seizure",
+    "severe_allergic_reaction",
+    "severe_bleeding"
+  ],
+  "recommendationTiers": {
+    "CALL_911": { "minScore": 9 },
+    "GO_TO_ER": { "minScore": 6 },
+    "URGENT_CARE": { "minScore": 3 },
+    "MONITOR": { "minScore": 0 }
+  }
+}

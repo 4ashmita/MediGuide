@@ -32,6 +32,24 @@ enum RecommendationTier: String, Codable {
         case .monitor: return "#00AA00"
         }
     }
+
+    var icon: String {
+        switch self {
+        case .call911:    return "phone.fill.arrow.up.right"
+        case .goToER:     return "building.2.fill"
+        case .urgentCare: return "cross.fill"
+        case .monitor:    return "eye.fill"
+        }
+    }
+
+    var priority: Int {
+        switch self {
+        case .call911:    return 4
+        case .goToER:     return 3
+        case .urgentCare: return 2
+        case .monitor:    return 1
+        }
+    }
 }
 
 enum AgeGroup: String {
@@ -105,6 +123,7 @@ struct NodeOption: Codable {
     let text: String
     let symptomId: String?
     let modifierId: String?
+    let ageGroupId: String?
     let next: String
 }
 

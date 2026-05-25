@@ -67,12 +67,14 @@ final class TriageEngine: ObservableObject {
 
     // MARK: - Scoring
 
-    private func evaluate() {
-        let hardOverrideHit = session.symptoms.contains {
+    private func checkHardOverrides() -> Bool {
+        session.symptoms.contains {
             treeData.hardOverrides.contains($0.symptomId)
         }
+    }
 
-        if hardOverrideHit {
+    private func evaluate() {
+        if checkHardOverrides() {
             session.hardOverrideTriggered = true
             session.totalScore = Int.max
             applyTier(.call911)

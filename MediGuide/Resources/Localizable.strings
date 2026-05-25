@@ -14,6 +14,31 @@
 "symptom.rapid_heartrate" = "Rapid Heart Rate";
 "symptom.low_oxygen" = "Low Blood Oxygen";
 
+// MARK: - Pediatric Symptoms
+"symptom.high_fever_infant" = "Fever in Infant (over 100.4°F)";
+"symptom.lethargy_infant" = "Lethargic or Hard to Wake";
+"symptom.blue_lips" = "Blue Lips or Skin";
+"symptom.inconsolable_crying" = "Inconsolable Crying (over 3 hours)";
+"symptom.refusing_to_eat_infant" = "Refusing to Eat or Drink";
+"symptom.soft_spot_bulging" = "Bulging Soft Spot (Fontanelle)";
+"symptom.vomiting_infant" = "Vomiting or Diarrhea";
+"symptom.rash_with_fever_child" = "Rash with Fever";
+"symptom.wheezing" = "Wheezing or Breathing Difficulty";
+"symptom.barking_cough" = "Barking Cough or Croup";
+
+// MARK: - Elderly Symptoms
+"symptom.sudden_confusion_elderly" = "Sudden Confusion or Disorientation";
+"symptom.fall_with_injury" = "Fall with Injury";
+"symptom.fall_no_injury" = "Fall without Injury";
+"symptom.fall_unable_to_get_up" = "Fall and Unable to Get Up";
+"symptom.decreased_appetite_elderly" = "Not Eating or Drinking Normally";
+"symptom.urinary_symptoms_elderly" = "Urinary Symptoms or Pain";
+"symptom.new_weakness_one_side" = "Sudden Weakness on One Side";
+"symptom.fatigue_elderly" = "Unusual Fatigue or Weakness";
+"symptom.dehydration_signs_elderly" = "Signs of Dehydration";
+"symptom.medication_side_effect" = "Possible Medication Side Effect";
+"symptom.baseline_function_decline" = "Decline from Normal Function";
+
 // MARK: - Modifiers
 "modifier.age_under_2" = "Under 2 Years Old";
 "modifier.age_over_65" = "Over 65 Years Old";
@@ -24,6 +49,17 @@
 "modifier.sudden_onset" = "Symptoms Came on Suddenly";
 "modifier.getting_worse" = "Symptoms Are Getting Worse";
 "modifier.instinct_override" = "Something Feels Wrong";
+
+// MARK: - Elderly Modifiers
+"modifier.baseline_change" = "Acting Differently Than Usual";
+"modifier.new_medication" = "Started a New Medication";
+"modifier.medication_nonadherence" = "Missed Medication Doses";
+"modifier.lives_alone" = "Lives Alone";
+"modifier.recent_hospitalization" = "Recently Hospitalized";
+"modifier.multiple_medications" = "Taking Multiple Medications";
+"modifier.history_of_falls" = "History of Falls";
+"modifier.dementia" = "Dementia or Cognitive Impairment";
+"modifier.frail" = "Frail or Low Mobility";
 
 // MARK: - Recommendation Tiers
 "tier.CALL_911" = "Call 911 Now";

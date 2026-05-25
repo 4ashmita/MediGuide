@@ -18,6 +18,7 @@ final class NavigationManager: ObservableObject {
         let node: TreeNode
         let addedSymptomId: String?
         let addedModifierId: String?
+        let addedAgeGroupId: String?
     }
     private var navigationStack: [NavigationEntry] = []
 
@@ -39,6 +40,10 @@ final class NavigationManager: ObservableObject {
         if let modifierId = option.modifierId {
             engine.addModifier(modifierId)
         }
+        if let ageGroupId = option.ageGroupId,
+           let ageGroup = AgeGroup(rawValue: ageGroupId) {
+            engine.setAgeGroup(ageGroup)
+        }
 
         if option.next == "result" {
             isComplete = true
@@ -49,7 +54,8 @@ final class NavigationManager: ObservableObject {
             navigationStack.append(NavigationEntry(
                 node: current,
                 addedSymptomId: option.symptomId,
-                addedModifierId: option.modifierId
+                addedModifierId: option.modifierId,
+                addedAgeGroupId: option.ageGroupId
             ))
             canGoBack = true
         }
@@ -69,6 +75,9 @@ final class NavigationManager: ObservableObject {
         }
         if let modifierId = last.addedModifierId {
             engine.removeModifier(modifierId)
+        }
+        if last.addedAgeGroupId != nil {
+            engine.setAgeGroup(.adult)
         }
 
         isComplete = false

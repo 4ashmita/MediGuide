@@ -1,9 +1,21 @@
 {
-  "version": "1.0",
-  "startNode": "chief_complaint",
+  "version": "1.1",
+  "startNode": "start",
   "nodes": {
-    "chief_complaint": {
-      "id": "chief_complaint",
+
+    "start": {
+      "id": "start",
+      "question": "Who needs help?",
+      "options": [
+        { "text": "Infant under 2", "ageGroupId": "infant", "modifierId": "age_under_2", "next": "infant_start" },
+        { "text": "Child 2 to 12", "ageGroupId": "child", "next": "child_start" },
+        { "text": "Adult 13 to 64", "ageGroupId": "adult", "next": "adult_start" },
+        { "text": "Elderly 65 or older", "ageGroupId": "elderly", "modifierId": "age_over_65", "next": "elderly_start" }
+      ]
+    },
+
+    "adult_start": {
+      "id": "adult_start",
       "question": "What is your main concern right now?",
       "options": [
         { "text": "Chest pain or breathing difficulty", "next": "chest_breathing" },
@@ -12,6 +24,7 @@
         { "text": "General illness (fever, nausea, dizziness)", "next": "general_illness" }
       ]
     },
+
     "chest_breathing": {
       "id": "chest_breathing",
       "question": "Which best describes what you are feeling?",
@@ -22,6 +35,7 @@
         { "text": "Low oxygen reading (below 95%)", "symptomId": "low_oxygen", "next": "condition_check" }
       ]
     },
+
     "head_neuro": {
       "id": "head_neuro",
       "question": "Which best describes what you are experiencing?",
@@ -32,6 +46,7 @@
         { "text": "Confusion or disorientation", "symptomId": "confusion", "next": "onset_check" }
       ]
     },
+
     "injury_allergic": {
       "id": "injury_allergic",
       "question": "Which best describes the situation?",
@@ -42,6 +57,7 @@
         { "text": "Other injury", "next": "condition_check" }
       ]
     },
+
     "general_illness": {
       "id": "general_illness",
       "question": "What best describes your symptoms?",
@@ -52,6 +68,7 @@
         { "text": "Headache", "symptomId": "mild_headache", "next": "onset_check" }
       ]
     },
+
     "onset_check": {
       "id": "onset_check",
       "question": "When did these symptoms start?",
@@ -60,6 +77,7 @@
         { "text": "Gradually over hours or days", "next": "condition_check" }
       ]
     },
+
     "condition_check": {
       "id": "condition_check",
       "question": "Do you have any of these existing conditions?",
@@ -70,6 +88,7 @@
         { "text": "None of these", "next": "worsening_check" }
       ]
     },
+
     "worsening_check": {
       "id": "worsening_check",
       "question": "How are your symptoms progressing?",
@@ -78,7 +97,156 @@
         { "text": "Staying about the same", "next": "result" },
         { "text": "Slowly improving", "next": "result" }
       ]
+    },
+
+    "infant_start": {
+      "id": "infant_start",
+      "question": "How old is the baby?",
+      "options": [
+        { "text": "Under 3 months", "next": "newborn_path" },
+        { "text": "3 to 12 months", "next": "infant_primary" },
+        { "text": "1 to 2 years", "next": "toddler_primary" }
+      ]
+    },
+
+    "newborn_path": {
+      "id": "newborn_path",
+      "question": "Does the baby have a fever over 100.4 degrees F?",
+      "options": [
+        { "text": "Yes", "symptomId": "high_fever_infant", "next": "result" },
+        { "text": "No", "next": "newborn_breathing" },
+        { "text": "I don't know", "next": "newborn_breathing" }
+      ]
+    },
+
+    "newborn_breathing": {
+      "id": "newborn_breathing",
+      "question": "How is the baby breathing?",
+      "options": [
+        { "text": "Breathing fast or struggling to breathe", "symptomId": "difficulty_breathing", "next": "result" },
+        { "text": "Breathing normally", "next": "infant_primary" }
+      ]
+    },
+
+    "infant_primary": {
+      "id": "infant_primary",
+      "question": "What is the main concern with the baby?",
+      "options": [
+        { "text": "Hard to wake or not responding normally", "symptomId": "lethargy_infant", "next": "result" },
+        { "text": "Blue lips or skin", "symptomId": "blue_lips", "next": "result" },
+        { "text": "Crying inconsolably for over 3 hours", "symptomId": "inconsolable_crying", "next": "infant_secondary" },
+        { "text": "Refusing to eat or drink", "symptomId": "refusing_to_eat_infant", "next": "infant_secondary" }
+      ]
+    },
+
+    "toddler_primary": {
+      "id": "toddler_primary",
+      "question": "What is the main concern with the toddler?",
+      "options": [
+        { "text": "High fever", "symptomId": "high_fever", "next": "infant_secondary" },
+        { "text": "Rash with fever", "symptomId": "rash_with_fever_child", "next": "result" },
+        { "text": "Wheezing or breathing difficulty", "symptomId": "wheezing", "next": "result" },
+        { "text": "Vomiting or diarrhea", "symptomId": "vomiting_infant", "next": "infant_secondary" }
+      ]
+    },
+
+    "infant_secondary": {
+      "id": "infant_secondary",
+      "question": "How are the symptoms progressing?",
+      "options": [
+        { "text": "Getting worse quickly", "modifierId": "getting_worse", "next": "worsening_check" },
+        { "text": "Stable for a few hours", "next": "worsening_check" },
+        { "text": "Started more than a day ago", "next": "worsening_check" }
+      ]
+    },
+
+    "child_start": {
+      "id": "child_start",
+      "question": "What is the main concern with the child?",
+      "options": [
+        { "text": "Breathing difficulty or wheezing", "symptomId": "wheezing", "next": "result" },
+        { "text": "Rash with fever", "symptomId": "rash_with_fever_child", "next": "result" },
+        { "text": "High fever or general illness", "symptomId": "high_fever", "next": "child_secondary" },
+        { "text": "Injury or other concern", "next": "child_secondary" }
+      ]
+    },
+
+    "child_secondary": {
+      "id": "child_secondary",
+      "question": "Do any of these apply?",
+      "options": [
+        { "text": "Barking cough or croup", "symptomId": "barking_cough", "next": "worsening_check" },
+        { "text": "Vomiting repeatedly", "symptomId": "vomiting_infant", "next": "worsening_check" },
+        { "text": "Ear pain or inconsolable crying", "symptomId": "inconsolable_crying", "next": "worsening_check" },
+        { "text": "None of these", "next": "worsening_check" }
+      ]
+    },
+
+    "elderly_start": {
+      "id": "elderly_start",
+      "question": "Is this a change from their normal state?",
+      "options": [
+        { "text": "Yes, they are acting differently than usual", "modifierId": "baseline_change", "next": "elderly_baseline_change" },
+        { "text": "No, this has been gradual", "next": "elderly_gradual_symptoms" },
+        { "text": "I don't know their normal baseline", "next": "elderly_primary" }
+      ]
+    },
+
+    "elderly_baseline_change": {
+      "id": "elderly_baseline_change",
+      "question": "What changed suddenly?",
+      "options": [
+        { "text": "Suddenly more confused or disoriented", "symptomId": "sudden_confusion_elderly", "next": "result" },
+        { "text": "Suddenly weaker or cannot move one side", "symptomId": "new_weakness_one_side", "next": "result" },
+        { "text": "Fell and cannot get up", "symptomId": "fall_unable_to_get_up", "next": "result" },
+        { "text": "Not eating, drinking, or responding normally", "symptomId": "decreased_appetite_elderly", "next": "elderly_medications" }
+      ]
+    },
+
+    "elderly_gradual_symptoms": {
+      "id": "elderly_gradual_symptoms",
+      "question": "What are the main concerns?",
+      "options": [
+        { "text": "Increasing confusion or memory changes", "symptomId": "confusion", "next": "elderly_medications" },
+        { "text": "Weakness or unusual fatigue", "symptomId": "fatigue_elderly", "next": "elderly_medications" },
+        { "text": "Falls or feeling unsteady", "symptomId": "fall_no_injury", "next": "elderly_medications" },
+        { "text": "Urinary symptoms or pain", "symptomId": "urinary_symptoms_elderly", "next": "elderly_medications" }
+      ]
+    },
+
+    "elderly_primary": {
+      "id": "elderly_primary",
+      "question": "What is the main concern?",
+      "options": [
+        { "text": "Chest pain or breathing difficulty", "next": "chest_breathing" },
+        { "text": "Fall or injury", "symptomId": "fall_with_injury", "next": "elderly_medications" },
+        { "text": "Confusion or sudden weakness", "symptomId": "confusion", "next": "elderly_medications" },
+        { "text": "General illness or other", "next": "elderly_medications" }
+      ]
+    },
+
+    "elderly_medications": {
+      "id": "elderly_medications",
+      "question": "Have there been any recent medication changes?",
+      "options": [
+        { "text": "Started a new medication recently", "modifierId": "new_medication", "next": "elderly_risk_factors" },
+        { "text": "Missed doses recently", "modifierId": "medication_nonadherence", "next": "elderly_risk_factors" },
+        { "text": "Taking medications as prescribed", "next": "elderly_risk_factors" },
+        { "text": "Not on any medications", "next": "elderly_risk_factors" }
+      ]
+    },
+
+    "elderly_risk_factors": {
+      "id": "elderly_risk_factors",
+      "question": "Do any of these apply?",
+      "options": [
+        { "text": "Lives alone", "modifierId": "lives_alone", "next": "worsening_check" },
+        { "text": "History of falls", "modifierId": "history_of_falls", "next": "worsening_check" },
+        { "text": "Recently hospitalized", "modifierId": "recent_hospitalization", "next": "worsening_check" },
+        { "text": "None of these", "next": "worsening_check" }
+      ]
     }
+
   },
   "symptomWeights": {
     "chest_pain": 9,
@@ -94,7 +262,28 @@
     "dizziness": 3,
     "confusion": 7,
     "rapid_heartrate": 6,
-    "low_oxygen": 8
+    "low_oxygen": 8,
+    "high_fever_infant": 10,
+    "lethargy_infant": 9,
+    "blue_lips": 10,
+    "inconsolable_crying": 6,
+    "refusing_to_eat_infant": 6,
+    "soft_spot_bulging": 10,
+    "vomiting_infant": 5,
+    "rash_with_fever_child": 7,
+    "wheezing": 7,
+    "barking_cough": 5,
+    "sudden_confusion_elderly": 10,
+    "fall_with_injury": 8,
+    "fall_no_injury": 6,
+    "fall_unable_to_get_up": 10,
+    "decreased_appetite_elderly": 5,
+    "urinary_symptoms_elderly": 6,
+    "new_weakness_one_side": 10,
+    "fatigue_elderly": 4,
+    "dehydration_signs_elderly": 7,
+    "medication_side_effect": 5,
+    "baseline_function_decline": 6
   },
   "modifierWeights": {
     "age_under_2": 4,
@@ -105,7 +294,16 @@
     "immunocompromised": 4,
     "sudden_onset": 2,
     "getting_worse": 3,
-    "instinct_override": 2
+    "instinct_override": 2,
+    "baseline_change": 3,
+    "new_medication": 2,
+    "medication_nonadherence": 3,
+    "lives_alone": 2,
+    "recent_hospitalization": 3,
+    "multiple_medications": 2,
+    "history_of_falls": 2,
+    "dementia": 4,
+    "frail": 3
   },
   "hardOverrides": [
     "unconscious",
@@ -114,12 +312,19 @@
     "stroke_symptoms",
     "seizure",
     "severe_allergic_reaction",
-    "severe_bleeding"
+    "severe_bleeding",
+    "high_fever_infant",
+    "lethargy_infant",
+    "blue_lips",
+    "soft_spot_bulging",
+    "sudden_confusion_elderly",
+    "fall_unable_to_get_up",
+    "new_weakness_one_side"
   ],
   "recommendationTiers": {
-    "CALL_911": { "minScore": 9 },
-    "GO_TO_ER": { "minScore": 6 },
-    "URGENT_CARE": { "minScore": 3 },
+    "CALL_911": { "minScore": 25 },
+    "GO_TO_ER": { "minScore": 15 },
+    "URGENT_CARE": { "minScore": 6 },
     "MONITOR": { "minScore": 0 }
   },
   "warningSigns": {
@@ -143,11 +348,11 @@
       "Difficulty breathing develops",
       "Chest pain or pressure begins",
       "Confusion or inability to stay awake",
-      "Fever rises above 104°F (40°C)",
+      "Fever rises above 104 degrees F",
       "Severe pain develops or current pain becomes unbearable"
     ],
     "MONITOR": [
-      "Fever rises above 103°F (39.4°C)",
+      "Fever rises above 103 degrees F",
       "Symptoms have not improved after 48 hours",
       "Difficulty breathing develops at any point",
       "Confusion or unusual drowsiness appears",

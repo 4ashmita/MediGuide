@@ -1,0 +1,32 @@
+// MARK: - Symptoms
+"symptom.chest_pain" = "Chest Pain";
+"symptom.difficulty_breathing" = "Difficulty Breathing";
+"symptom.unconscious" = "Unconscious or Unresponsive";
+"symptom.seizure" = "Seizure";
+"symptom.severe_bleeding" = "Severe Bleeding";
+"symptom.stroke_symptoms" = "Stroke Symptoms";
+"symptom.severe_allergic_reaction" = "Severe Allergic Reaction";
+"symptom.high_fever" = "High Fever";
+"symptom.mild_headache" = "Mild Headache";
+"symptom.nausea" = "Nausea";
+"symptom.dizziness" = "Dizziness";
+"symptom.confusion" = "Confusion or Disorientation";
+"symptom.rapid_heartrate" = "Rapid Heart Rate";
+"symptom.low_oxygen" = "Low Blood Oxygen";
+
+// MARK: - Modifiers
+"modifier.age_under_2" = "Under 2 Years Old";
+"modifier.age_over_65" = "Over 65 Years Old";
+"modifier.pregnant" = "Pregnant";
+"modifier.diabetic" = "Diabetes";
+"modifier.heart_condition" = "Heart Condition";
+"modifier.immunocompromised" = "Weakened Immune System";
+"modifier.sudden_onset" = "Symptoms Came on Suddenly";
+"modifier.getting_worse" = "Symptoms Are Getting Worse";
+"modifier.instinct_override" = "Something Feels Wrong";
+
+// MARK: - Recommendation Tiers
+"tier.CALL_911" = "Call 911 Now";
+"tier.GO_TO_ER" = "Go to the ER Now";
+"tier.URGENT_CARE" = "Go to Urgent Care";
+"tier.MONITOR" = "Monitor Carefully";

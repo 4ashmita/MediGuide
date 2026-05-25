@@ -1,5 +1,77 @@
 {
   "version": "1.0",
+  "startNode": "chief_complaint",
+  "nodes": {
+    "chief_complaint": {
+      "question": "What is your main concern right now?",
+      "options": [
+        { "text": "Chest pain or breathing difficulty", "next": "chest_breathing" },
+        { "text": "Head, brain or neurological", "next": "head_neuro" },
+        { "text": "Severe bleeding or allergic reaction", "next": "injury_allergic" },
+        { "text": "General illness (fever, nausea, dizziness)", "next": "general_illness" }
+      ]
+    },
+    "chest_breathing": {
+      "question": "Which best describes what you are feeling?",
+      "options": [
+        { "text": "Chest pain or pressure", "symptomId": "chest_pain", "next": "onset_check" },
+        { "text": "Cannot breathe or very short of breath", "symptomId": "difficulty_breathing", "next": "result" },
+        { "text": "Heart racing or pounding", "symptomId": "rapid_heartrate", "next": "onset_check" },
+        { "text": "Low oxygen reading (below 95%)", "symptomId": "low_oxygen", "next": "condition_check" }
+      ]
+    },
+    "head_neuro": {
+      "question": "Which best describes what you are experiencing?",
+      "options": [
+        { "text": "Unconscious or will not wake up", "symptomId": "unconscious", "next": "result" },
+        { "text": "Seizure (convulsions)", "symptomId": "seizure", "next": "result" },
+        { "text": "Stroke symptoms (face drooping, arm weakness, slurred speech)", "symptomId": "stroke_symptoms", "next": "result" },
+        { "text": "Confusion or disorientation", "symptomId": "confusion", "next": "onset_check" }
+      ]
+    },
+    "injury_allergic": {
+      "question": "Which best describes the situation?",
+      "options": [
+        { "text": "Severe or uncontrolled bleeding", "symptomId": "severe_bleeding", "next": "result" },
+        { "text": "Severe allergic reaction (throat tightening, hives spreading)", "symptomId": "severe_allergic_reaction", "next": "result" },
+        { "text": "Mild bleeding or wound", "next": "condition_check" },
+        { "text": "Other injury", "next": "condition_check" }
+      ]
+    },
+    "general_illness": {
+      "question": "What best describes your symptoms?",
+      "options": [
+        { "text": "High fever", "symptomId": "high_fever", "next": "onset_check" },
+        { "text": "Nausea or vomiting", "symptomId": "nausea", "next": "onset_check" },
+        { "text": "Dizziness or lightheadedness", "symptomId": "dizziness", "next": "onset_check" },
+        { "text": "Headache", "symptomId": "mild_headache", "next": "onset_check" }
+      ]
+    },
+    "onset_check": {
+      "question": "When did these symptoms start?",
+      "options": [
+        { "text": "Came on suddenly within minutes", "modifierId": "sudden_onset", "next": "condition_check" },
+        { "text": "Gradually over hours or days", "next": "condition_check" }
+      ]
+    },
+    "condition_check": {
+      "question": "Do you have any of these existing conditions?",
+      "options": [
+        { "text": "Diabetes", "modifierId": "diabetic", "next": "worsening_check" },
+        { "text": "Heart condition", "modifierId": "heart_condition", "next": "worsening_check" },
+        { "text": "Weakened immune system", "modifierId": "immunocompromised", "next": "worsening_check" },
+        { "text": "None of these", "next": "worsening_check" }
+      ]
+    },
+    "worsening_check": {
+      "question": "How are your symptoms progressing?",
+      "options": [
+        { "text": "Getting worse", "modifierId": "getting_worse", "next": "result" },
+        { "text": "Staying about the same", "next": "result" },
+        { "text": "Slowly improving", "next": "result" }
+      ]
+    }
+  },
   "symptomWeights": {
     "chest_pain": 9,
     "difficulty_breathing": 9,
@@ -41,5 +113,38 @@
     "GO_TO_ER": { "minScore": 6 },
     "URGENT_CARE": { "minScore": 3 },
     "MONITOR": { "minScore": 0 }
+  },
+  "warningSigns": {
+    "CALL_911": [
+      "Do not move the person unless they are in immediate danger",
+      "Monitor breathing and pulse continuously",
+      "Begin CPR if breathing or pulse stops",
+      "Apply firm pressure to any severe bleeding",
+      "Keep them warm and still until paramedics arrive"
+    ],
+    "GO_TO_ER": [
+      "Loss of consciousness or unresponsiveness",
+      "Breathing becomes labored or stops",
+      "Chest pain becomes severe or spreads to arm or jaw",
+      "Signs of stroke: face drooping, arm weakness, slurred speech",
+      "Throat tightening or severe allergic reaction develops",
+      "Bleeding cannot be controlled with direct pressure"
+    ],
+    "URGENT_CARE": [
+      "Symptoms rapidly worsen over minutes",
+      "Difficulty breathing develops",
+      "Chest pain or pressure begins",
+      "Confusion or inability to stay awake",
+      "Fever rises above 104°F (40°C)",
+      "Severe pain develops or current pain becomes unbearable"
+    ],
+    "MONITOR": [
+      "Fever rises above 103°F (39.4°C)",
+      "Symptoms have not improved after 48 hours",
+      "Difficulty breathing develops at any point",
+      "Confusion or unusual drowsiness appears",
+      "Unable to keep fluids down for more than 8 hours",
+      "Any symptom suddenly and significantly worsens"
+    ]
   }
 }

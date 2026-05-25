@@ -34,11 +34,11 @@ enum RecommendationTier: String, Codable {
     }
 }
 
-enum AgeGroup {
-    case infant      // under 2
-    case child       // 2-12
-    case adult       // 13-64
-    case elderly     // 65+
+enum AgeGroup: String {
+    case infant  = "infant"   // under 2
+    case child   = "child"    // 2-12
+    case adult   = "adult"    // 13-64
+    case elderly = "elderly"  // 65+
     
     var scoreMultiplier: Double {
         switch self {
@@ -78,18 +78,28 @@ struct TriageSession {
 
 struct DecisionTreeData: Codable {
     let version: String
+    let startNode: String
+    let nodes: [String: TreeNode]
     let symptomWeights: [String: Int]
     let modifierWeights: [String: Int]
     let hardOverrides: [String]
     let recommendationTiers: [String: TierConfig]
-    
+    let warningSigns: [String: [String]]
+
     struct TierConfig: Codable {
         let minScore: Int
     }
-}//
-//  TriageModels.swift
-//  MediGuide
-//
-//  Created by Ashmita Appineni on 2/17/26.
-//
+}
+
+struct TreeNode: Codable {
+    let question: String
+    let options: [NodeOption]
+}
+
+struct NodeOption: Codable {
+    let text: String
+    let symptomId: String?
+    let modifierId: String?
+    let next: String
+}
 

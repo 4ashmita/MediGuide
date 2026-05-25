@@ -1,24 +1,23 @@
-//
-//  ContentView.swift
-//  MediGuide
-//
-//  Created by Ashmita Appineni on 2/17/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    @StateObject private var engine: TriageEngine
+    @StateObject private var navigationManager: NavigationManager
 
-#Preview {
-    ContentView()
+    init() {
+        do {
+            let treeData = try DecisionTreeLoader.load()
+            let engine = TriageEngine(treeData: treeData)
+            _engine = StateObject(wrappedValue: engine)
+            _navigationManager = StateObject(wrappedValue: NavigationManager(treeData: treeData, engine: engine))
+        } catch {
+            fatalError("Failed to load DecisionTree.json: \(error.localizedDescription)")
+        }
+    }
+
+    var body: some View {
+        QuestionView()
+            .environmentObject(engine)
+            .environmentObject(navigationManager)
+    }
 }

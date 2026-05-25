@@ -35,4 +35,12 @@ enum DecisionTreeLoader {
     static func getNodeById(_ id: String, from treeData: DecisionTreeData) -> TreeNode? {
         return treeData.nodes[id]
     }
+
+    static func getSymptomWeight(_ id: String, from treeData: DecisionTreeData) -> Int? {
+        return treeData.symptomWeights[id]
+    }
+
+    static func isHardOverride(_ id: String, from treeData: DecisionTreeData) -> Bool {
+        return treeData.hardOverrides.contains(id)
+    }
 }

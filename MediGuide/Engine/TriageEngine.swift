@@ -57,7 +57,7 @@ final class TriageEngine: ObservableObject {
     func triggerInstinctOverride() {
         guard !session.instinctOverrideUsed else { return }
         session.instinctOverrideUsed = true
-        addModifier("instinct_override")
+        evaluate()
     }
 
     func reset() {
@@ -79,19 +79,15 @@ final class TriageEngine: ObservableObject {
             return
         }
 
-        let symptomTotal = session.symptoms.reduce(0) { $0 + $1.weight }
-        let modifierTotal = session.modifiers.reduce(0) { $0 + $1.weight }
-        let rawScore = Double(symptomTotal + modifierTotal) * session.ageGroup.scoreMultiplier
-        session.totalScore = Int(rawScore.rounded())
+        let base = ScoringCalculator.symptomTotal(from: session.symptoms)
+                 + ScoringCalculator.modifierTotal(from: session.modifiers)
+        session.totalScore = ScoringCalculator.applyAgeMultiplier(to: base, for: session.ageGroup)
 
-        let tier = treeData.recommendationTiers
-            .compactMap { key, config -> (RecommendationTier, Int)? in
-                guard let tier = RecommendationTier(rawValue: key) else { return nil }
-                return (tier, config.minScore)
-            }
-            .filter { session.totalScore >= $0.1 }
-            .max(by: { $0.1 < $1.1 })
-            .map { $0.0 } ?? .monitor
+        var tier = ScoringCalculator.mapToTier(score: session.totalScore, tiers: treeData.recommendationTiers)
+
+        if session.instinctOverrideUsed {
+            tier = ScoringCalculator.escalateTier(tier)
+        }
 
         applyTier(tier)
     }

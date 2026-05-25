@@ -92,8 +92,13 @@ struct DecisionTreeData: Codable {
 }
 
 struct TreeNode: Codable {
+    let id: String
     let question: String
     let options: [NodeOption]
+
+    var isEndpoint: Bool {
+        options.contains { $0.next == "result" }
+    }
 }
 
 struct NodeOption: Codable {

@@ -3,6 +3,7 @@
   "startNode": "chief_complaint",
   "nodes": {
     "chief_complaint": {
+      "id": "chief_complaint",
       "question": "What is your main concern right now?",
       "options": [
         { "text": "Chest pain or breathing difficulty", "next": "chest_breathing" },
@@ -12,6 +13,7 @@
       ]
     },
     "chest_breathing": {
+      "id": "chest_breathing",
       "question": "Which best describes what you are feeling?",
       "options": [
         { "text": "Chest pain or pressure", "symptomId": "chest_pain", "next": "onset_check" },
@@ -21,6 +23,7 @@
       ]
     },
     "head_neuro": {
+      "id": "head_neuro",
       "question": "Which best describes what you are experiencing?",
       "options": [
         { "text": "Unconscious or will not wake up", "symptomId": "unconscious", "next": "result" },
@@ -30,6 +33,7 @@
       ]
     },
     "injury_allergic": {
+      "id": "injury_allergic",
       "question": "Which best describes the situation?",
       "options": [
         { "text": "Severe or uncontrolled bleeding", "symptomId": "severe_bleeding", "next": "result" },
@@ -39,6 +43,7 @@
       ]
     },
     "general_illness": {
+      "id": "general_illness",
       "question": "What best describes your symptoms?",
       "options": [
         { "text": "High fever", "symptomId": "high_fever", "next": "onset_check" },
@@ -48,6 +53,7 @@
       ]
     },
     "onset_check": {
+      "id": "onset_check",
       "question": "When did these symptoms start?",
       "options": [
         { "text": "Came on suddenly within minutes", "modifierId": "sudden_onset", "next": "condition_check" },
@@ -55,6 +61,7 @@
       ]
     },
     "condition_check": {
+      "id": "condition_check",
       "question": "Do you have any of these existing conditions?",
       "options": [
         { "text": "Diabetes", "modifierId": "diabetic", "next": "worsening_check" },
@@ -64,6 +71,7 @@
       ]
     },
     "worsening_check": {
+      "id": "worsening_check",
       "question": "How are your symptoms progressing?",
       "options": [
         { "text": "Getting worse", "modifierId": "getting_worse", "next": "result" },

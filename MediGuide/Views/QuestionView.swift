@@ -42,6 +42,11 @@ struct QuestionView: View {
                     }
                     .padding()
                 }
+
+                Divider()
+                EscalationButton()
+                    .padding(.horizontal)
+                    .padding(.vertical, 12)
             }
         }
     }

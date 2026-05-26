@@ -79,7 +79,7 @@ enum RecommendationContent {
                     "Description of when symptoms started and how they have changed"
                 ],
                 whatToExpect: "Urgent care can handle stitches, x-rays, basic lab work, and write prescriptions. Most visits are completed within 1-2 hours.",
-                reassessmentMinutes: 60
+                reassessmentMinutes: 30
             )
 
         case .monitor:

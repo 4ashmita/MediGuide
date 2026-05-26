@@ -303,7 +303,9 @@
     "multiple_medications": 2,
     "history_of_falls": 2,
     "dementia": 4,
-    "frail": 3
+    "frail": 3,
+    "symptoms_worsening": 3,
+    "symptoms_not_improving": 2
   },
   "hardOverrides": [
     "unconscious",

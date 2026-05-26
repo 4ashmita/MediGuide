@@ -55,8 +55,63 @@ final class TriageEngine: ObservableObject {
     }
 
     func triggerInstinctOverride() {
-        guard !session.instinctOverrideUsed else { return }
+        guard currentTier != .call911 else { return }
         session.instinctOverrideUsed = true
+        session.escalationCount += 1
+        evaluate()
+    }
+
+    // Returns true if timer should restart, false if escalation took over
+    @discardableResult
+    func reassess(response: ReassessmentResponse, minutesElapsed: Int) -> Bool {
+        let timestamp = "+\(minutesElapsed)min: \(response)"
+        session.reassessmentHistory.append(timestamp)
+        session.reassessmentCount += 1
+
+        switch response {
+        case .better:
+            return true
+
+        case .worse:
+            addModifier("symptoms_worsening")
+            escalateOnReassessment()
+            return false
+
+        case .sameMonitor:
+            if minutesElapsed >= 240 {
+                addModifier("symptoms_not_improving")
+                escalateOnReassessment()
+                return false
+            } else if minutesElapsed >= 120 && session.reassessmentCount >= 2 {
+                addModifier("symptoms_not_improving")
+                escalateOnReassessment()
+                return false
+            }
+            return true
+
+        case .sameOnWay:
+            return true
+
+        case .sameNotGone:
+            if currentTier == .urgentCare && minutesElapsed >= 60 {
+                addModifier("symptoms_not_improving")
+                escalateOnReassessment()
+                return false
+            }
+            return true
+
+        case .cantTravel:
+            while currentTier != .call911 {
+                escalateOnReassessment()
+            }
+            return false
+        }
+    }
+
+    private func escalateOnReassessment() {
+        guard currentTier != .call911 else { return }
+        session.escalatedViaReassessment = true
+        session.escalationCount += 1
         evaluate()
     }
 
@@ -87,7 +142,7 @@ final class TriageEngine: ObservableObject {
 
         var tier = ScoringCalculator.mapToTier(score: session.totalScore, tiers: treeData.recommendationTiers)
 
-        if session.instinctOverrideUsed {
+        for _ in 0 ..< session.escalationCount {
             tier = ScoringCalculator.escalateTier(tier)
         }
 
@@ -96,6 +151,6 @@ final class TriageEngine: ObservableObject {
 
     private func applyTier(_ tier: RecommendationTier) {
         currentTier = tier
-        warningSigns = treeData.warningSigns[tier.rawValue] ?? []
+        warningSigns = WarningSignsProvider.getWarningSigns(tier: tier, symptoms: session.symptoms)
     }
 }

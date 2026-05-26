@@ -3,26 +3,78 @@ import SwiftUI
 struct ResultsView: View {
     @EnvironmentObject var engine: TriageEngine
     @EnvironmentObject var navigationManager: NavigationManager
+    @StateObject private var timer = ReassessmentTimer()
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var showReassessmentPrompt = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                tierHeader
-                VStack(alignment: .leading, spacing: 28) {
-                    explanationSection
-                    primaryActionButton
-                    if !engine.warningSigns.isEmpty { warningSignsSection }
-                    firstAidSection
-                    whatToBringSection
-                    whatToExpectSection
-                    escalationSection
-                    if let minutes = content.reassessmentMinutes { reassessmentSection(minutes: minutes) }
-                    restartButton
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(spacing: 0) {
+                    tierHeader
+                    VStack(alignment: .leading, spacing: 28) {
+                        if engine.session.escalationCount > 0 { escalationBadge }
+                        explanationSection
+                        primaryActionButton
+                        if !engine.warningSigns.isEmpty {
+                        WarningSignsView(tier: engine.currentTier, warnings: engine.warningSigns)
+                    }
+                        firstAidSection
+                        whatToBringSection
+                        whatToExpectSection
+                        if let minutes = content.reassessmentMinutes { reassessmentSection(minutes: minutes) }
+                        restartButton
+                    }
+                    .padding()
                 }
-                .padding()
+            }
+            .ignoresSafeArea(edges: .top)
+
+            Divider()
+            EscalationButton()
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+        }
+        .onAppear {
+            timer.startTimer(for: engine.currentTier)
+        }
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+            case .background: timer.pause()
+            case .active:     timer.resume()
+            default:          break
             }
         }
-        .ignoresSafeArea(edges: .top)
+        .onChange(of: timer.didExpire) { expired in
+            if expired {
+                showReassessmentPrompt = true
+                timer.acknowledgeExpiry()
+            }
+        }
+        .onChange(of: engine.currentTier) { _ in
+            timer.reset()
+            timer.startTimer(for: engine.currentTier)
+        }
+        .fullScreenCover(isPresented: $showReassessmentPrompt) {
+            if let tier = timer.tier {
+                ReassessmentPromptView(
+                    tier: tier,
+                    minutesElapsed: timer.minutesElapsed
+                ) { response in
+                    let shouldRestart = engine.reassess(
+                        response: response,
+                        minutesElapsed: timer.minutesElapsed
+                    )
+                    showReassessmentPrompt = false
+                    if shouldRestart {
+                        timer.reset()
+                        timer.startTimer(for: engine.currentTier)
+                    } else {
+                        timer.reset()
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Content
@@ -66,6 +118,33 @@ struct ResultsView: View {
             .frame(maxWidth: .infinity)
         }
         .frame(minHeight: 240)
+    }
+
+    // MARK: - Escalation Badge
+
+    private var escalationBadge: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "person.fill.checkmark")
+                .foregroundColor(Color(red: 1.0, green: 0.55, blue: 0.0))
+            Text("Escalated based on your concern")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(Color(red: 1.0, green: 0.55, blue: 0.0))
+            Spacer()
+            if engine.session.escalationCount > 1 {
+                Text("×\(engine.session.escalationCount)")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color(red: 1.0, green: 0.55, blue: 0.0))
+                    .cornerRadius(6)
+            }
+        }
+        .padding(12)
+        .background(Color(red: 1.0, green: 0.55, blue: 0.0).opacity(0.1))
+        .cornerRadius(10)
     }
 
     // MARK: - Explanation
@@ -114,29 +193,6 @@ struct ResultsView: View {
             if let url = URL(string: "maps://?q=\(query)") { UIApplication.shared.open(url) }
         case .monitor:
             break
-        }
-    }
-
-    // MARK: - Warning Signs
-
-    private var warningSignsSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            sectionLabel("Call 911 immediately if:")
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(engine.warningSigns, id: \.self) { sign in
-                    HStack(alignment: .top, spacing: 10) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.orange)
-                            .font(.caption)
-                            .padding(.top, 3)
-                        Text(sign)
-                            .font(.subheadline)
-                    }
-                }
-            }
-            .padding()
-            .background(Color.orange.opacity(0.08))
-            .cornerRadius(12)
         }
     }
 
@@ -201,48 +257,27 @@ struct ResultsView: View {
         }
     }
 
-    // MARK: - Escalation
-
-    private var escalationSection: some View {
-        Button(action: {
-            engine.triggerInstinctOverride()
-        }) {
-            HStack(spacing: 8) {
-                Image(systemName: "exclamationmark.circle.fill")
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Something feels more serious")
-                        .fontWeight(.semibold)
-                        .font(.subheadline)
-                    Text("Tap to escalate to the next level of care")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            .foregroundColor(.primary)
-            .padding()
-            .background(Color.gray.opacity(0.08))
-            .cornerRadius(12)
-        }
-        .disabled(engine.currentTier == .call911)
-        .opacity(engine.currentTier == .call911 ? 0 : 1)
-    }
-
     // MARK: - Reassessment Timer
 
     private func reassessmentSection(minutes: Int) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionLabel("Re-assess in")
+            sectionLabel("Check-in timer")
             HStack(spacing: 10) {
-                Image(systemName: "timer")
+                Image(systemName: timer.isRunning ? "timer" : "timer.circle")
                     .foregroundColor(tierColor)
-                Text(minutes >= 60 ? "\(minutes / 60) hour\(minutes / 60 > 1 ? "s" : "")" : "\(minutes) minutes")
-                    .fontWeight(.semibold)
+                if timer.isRunning {
+                    Text("Check-in in \(timer.formattedTimeRemaining)")
+                        .fontWeight(.semibold)
+                        .monospacedDigit()
+                } else {
+                    let label = minutes >= 60
+                        ? "\(minutes / 60) hour\(minutes / 60 > 1 ? "s" : "")"
+                        : "\(minutes) minutes"
+                    Text("Starting \(label) check-in")
+                        .fontWeight(.semibold)
+                }
                 Spacer()
-                Text("If symptoms change, seek care sooner")
+                Text("Seek care sooner if symptoms change")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.trailing)

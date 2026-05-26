@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct MediGuideApp: App {
+    init() {
+        NotificationManager.requestPermission()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

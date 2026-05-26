@@ -68,6 +68,15 @@ enum AgeGroup: String {
     }
 }
 
+enum ReassessmentResponse {
+    case better
+    case worse
+    case sameOnWay        // UC / ER: same, and following recommendation
+    case sameNotGone      // UC / ER: same, but hasn't left yet
+    case cantTravel       // ER only: too sick to get to car
+    case sameMonitor      // MONITOR: no change
+}
+
 // MARK: - Data Models
 
 struct Symptom: Identifiable {
@@ -88,8 +97,12 @@ struct TriageSession {
     var ageGroup: AgeGroup = .adult
     var hardOverrideTriggered: Bool = false
     var instinctOverrideUsed: Bool = false
+    var escalationCount: Int = 0
     var totalScore: Int = 0
     var currentTier: RecommendationTier = .monitor
+    var reassessmentCount: Int = 0
+    var reassessmentHistory: [String] = []
+    var escalatedViaReassessment: Bool = false
 }
 
 // MARK: - JSON Decodable Models

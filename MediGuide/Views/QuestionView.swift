@@ -3,11 +3,10 @@ import SwiftUI
 struct QuestionView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var engine: TriageEngine
+    @EnvironmentObject var sessionManager: SessionManager
 
     var body: some View {
-        if navigationManager.isComplete {
-            ResultsView()
-        } else if let node = navigationManager.currentNode {
+        if let node = navigationManager.currentNode {
             VStack(spacing: 0) {
                 emergencyButton
                     .padding([.horizontal, .top])

@@ -103,6 +103,9 @@ struct TriageSession {
     var reassessmentCount: Int = 0
     var reassessmentHistory: [String] = []
     var escalatedViaReassessment: Bool = false
+    var sessionStartTime: Date = Date()
+    var isActive: Bool = false
+    var profileUsed: Bool = false
 }
 
 // MARK: - JSON Decodable Models

@@ -3,6 +3,7 @@ import SwiftUI
 struct ResultsView: View {
     @EnvironmentObject var engine: TriageEngine
     @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var sessionManager: SessionManager
     @StateObject private var timer = ReassessmentTimer()
     @Environment(\.scenePhase) private var scenePhase
     @State private var showReassessmentPrompt = false
@@ -291,7 +292,7 @@ struct ResultsView: View {
     // MARK: - Restart
 
     private var restartButton: some View {
-        Button(action: navigationManager.restart) {
+        Button(action: sessionManager.resetSession) {
             Text("Start Over")
                 .frame(maxWidth: .infinity)
                 .padding()

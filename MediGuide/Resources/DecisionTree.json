@@ -305,7 +305,20 @@
     "dementia": 4,
     "frail": 3,
     "symptoms_worsening": 3,
-    "symptoms_not_improving": 2
+    "symptoms_not_improving": 2,
+    "pregnant_t1": 3,
+    "pregnant_t2": 3,
+    "pregnant_t3": 5,
+    "postpartum": 4,
+    "asthma": 2,
+    "copd": 3,
+    "epilepsy": 2,
+    "stroke_history": 3,
+    "high_blood_pressure": 2,
+    "kidney_disease": 2,
+    "liver_disease": 2,
+    "blood_clotting_disorder": 3,
+    "mental_health_condition": 2
   },
   "hardOverrides": [
     "unconscious",

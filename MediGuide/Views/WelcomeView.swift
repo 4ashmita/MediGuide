@@ -25,8 +25,7 @@ struct WelcomeView: View {
 
             VStack(spacing: 14) {
                 Button(action: {
-                    let profile = ProfileStore.loadAll().first
-                    sessionManager.startSession(with: profile)
+                    appState.activeScreen = .profileSelection
                 }) {
                     Text("Start Triage")
                         .fontWeight(.bold)

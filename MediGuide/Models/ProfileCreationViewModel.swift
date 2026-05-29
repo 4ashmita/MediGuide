@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 final class ProfileCreationViewModel: ObservableObject {
 
@@ -23,33 +24,7 @@ final class ProfileCreationViewModel: ObservableObject {
 
     // MARK: - Step 3: Conditions
 
-    @Published var selectedConditions: Set<String> = []
-    @Published var conditionOtherNote: String = ""
-    @Published var isPregnantToggleOn: Bool = false
-    @Published var selectedTrimesterId: String? = nil
-
-    private static let pregnancyIds: Set<String> = [
-        "pregnant_t1", "pregnant_t2", "pregnant_t3", "postpartum", "pregnant_unknown"
-    ]
-
-    func setPregnantToggle(_ on: Bool) {
-        isPregnantToggleOn = on
-        if !on {
-            selectedTrimesterId = nil
-            selectedConditions.subtract(Self.pregnancyIds)
-        }
-    }
-
-    func selectTrimester(_ id: String) {
-        selectedConditions.subtract(Self.pregnancyIds)
-        selectedTrimesterId = id
-        selectedConditions.insert(id)
-    }
-
-    var pregnancyDisplayLabel: String? {
-        guard let id = selectedTrimesterId else { return nil }
-        return ConditionList.entry(for: id)?.displayName
-    }
+    let conditionToggleVM = ConditionToggleViewModel()
 
     // MARK: - Step 4: Medications
 
@@ -144,8 +119,8 @@ final class ProfileCreationViewModel: ObservableObject {
             biologicalSex: biologicalSex
         )
         profile.bloodType = bloodType
-        profile.conditions = Array(selectedConditions)
-        profile.conditionOtherNote = conditionOtherNote
+        profile.conditions = conditionToggleVM.exportConditionIds()
+        profile.conditionOtherNote = conditionToggleVM.otherNote
         profile.medications = medications
         profile.allergies = allergies
         profile.emergencyContactName = emergencyContactName

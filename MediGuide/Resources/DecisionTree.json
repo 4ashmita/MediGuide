@@ -283,7 +283,13 @@
     "fatigue_elderly": 4,
     "dehydration_signs_elderly": 7,
     "medication_side_effect": 5,
-    "baseline_function_decline": 6
+    "baseline_function_decline": 6,
+    "severe_headache": 6,
+    "vision_changes": 7,
+    "upper_abdominal_pain_right": 6,
+    "swelling_sudden": 5,
+    "sudden_shortness_of_breath": 7,
+    "sudden_nausea_late_pregnancy": 5
   },
   "modifierWeights": {
     "age_under_2": 4,
@@ -318,7 +324,17 @@
     "kidney_disease": 2,
     "liver_disease": 2,
     "blood_clotting_disorder": 3,
-    "mental_health_condition": 2
+    "mental_health_condition": 2,
+    "chronic_lung_other": 2,
+    "autoimmune": 2,
+    "brain_injury": 2,
+    "adrenal_insufficiency": 3,
+    "obesity_severe": 2,
+    "cancer_active": 3,
+    "first_pregnancy": 2,
+    "preeclampsia_history": 4,
+    "multiple_gestation": 3,
+    "advanced_maternal_age": 2
   },
   "hardOverrides": [
     "unconscious",

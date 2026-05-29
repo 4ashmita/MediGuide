@@ -1,6 +1,10 @@
 import Foundation
 import Combine
 
+private extension Set {
+    func intersects(_ other: Set<Element>) -> Bool { !isDisjoint(with: other) }
+}
+
 final class TriageEngine: ObservableObject {
 
     // MARK: - Published State
@@ -52,6 +56,14 @@ final class TriageEngine: ObservableObject {
     func setAgeGroup(_ group: AgeGroup) {
         session.ageGroup = group
         evaluate()
+    }
+
+    func setSessionActive(_ active: Bool) { session.isActive = active }
+    func setSessionStartTime(_ time: Date) { session.sessionStartTime = time }
+    func setProfileUsed(_ used: Bool) { session.profileUsed = used }
+    func setEmergencyContact(name: String, phone: String) {
+        session.sessionEmergencyContactName = name
+        session.sessionEmergencyContactPhone = phone
     }
 
     func triggerInstinctOverride() {
@@ -146,7 +158,45 @@ final class TriageEngine: ObservableObject {
             tier = ScoringCalculator.escalateTier(tier)
         }
 
+        // Preeclampsia combination rule — fires after hard overrides, before final tier
+        if let preeclampsiaTier = checkPreeclampsia() {
+            if preeclampsiaTier.priority > tier.priority {
+                tier = preeclampsiaTier
+            }
+        }
+
         applyTier(tier)
+    }
+
+    // MARK: - Preeclampsia Rule
+
+    private static let preeclampsiaSymptoms: Set<String> = [
+        "severe_headache", "vision_changes", "upper_abdominal_pain_right",
+        "swelling_sudden", "sudden_shortness_of_breath", "sudden_nausea_late_pregnancy"
+    ]
+
+    private static let pregnancyModifiers: Set<String> = [
+        "pregnant_t1", "pregnant_t2", "pregnant_t3", "postpartum", "pregnant"
+    ]
+
+    private static let preeclampsiaRiskModifiers: Set<String> = [
+        "high_blood_pressure", "diabetic", "diabetic_type1", "diabetic_type2",
+        "obesity_severe", "autoimmune", "first_pregnancy", "preeclampsia_history",
+        "multiple_gestation", "advanced_maternal_age"
+    ]
+
+    private func checkPreeclampsia() -> RecommendationTier? {
+        let activeModifierIds = Set(session.modifiers.map { $0.modifierId })
+        guard activeModifierIds.intersects(Self.pregnancyModifiers) else { return nil }
+
+        let activeSymptomIds = Set(session.symptoms.map { $0.symptomId })
+        let preeclampsiaSymptomCount = activeSymptomIds.intersection(Self.preeclampsiaSymptoms).count
+        guard preeclampsiaSymptomCount > 0 else { return nil }
+
+        let hasRiskFactor = activeModifierIds.intersects(Self.preeclampsiaRiskModifiers)
+        let threshold = hasRiskFactor ? 1 : 2
+
+        return preeclampsiaSymptomCount >= threshold ? .goToER : nil
     }
 
     private func applyTier(_ tier: RecommendationTier) {

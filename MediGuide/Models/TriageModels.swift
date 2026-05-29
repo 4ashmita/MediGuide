@@ -66,6 +66,15 @@ enum AgeGroup: String {
         case .elderly: return 1.3
         }
     }
+
+    var selectionIcon: String {
+        switch self {
+        case .infant:  return "figure.and.child.holdinghands"
+        case .child:   return "figure.child"
+        case .adult:   return "figure.stand"
+        case .elderly: return "figure.roll"
+        }
+    }
 }
 
 enum ReassessmentResponse {
@@ -106,6 +115,8 @@ struct TriageSession {
     var sessionStartTime: Date = Date()
     var isActive: Bool = false
     var profileUsed: Bool = false
+    var sessionEmergencyContactName: String = ""
+    var sessionEmergencyContactPhone: String = ""
 }
 
 // MARK: - JSON Decodable Models

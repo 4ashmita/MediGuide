@@ -135,86 +135,13 @@ struct ProfileCreationView: View {
 
     // MARK: - Step 3: Conditions
 
-    private static let nonPregnancyConditions: [ConditionEntry] = ConditionList.all.filter {
-        !["pregnant_t1", "pregnant_t2", "pregnant_t3", "postpartum", "pregnant_unknown"].contains($0.conditionId)
-    }
-
-    private static let trimesterOptions: [(String, String)] = [
-        ("pregnant_t1", "First trimester (weeks 1–12)"),
-        ("pregnant_t2", "Second trimester (weeks 13–26)"),
-        ("pregnant_t3", "Third trimester (weeks 27–40)"),
-        ("postpartum", "Postpartum (within 6 weeks of delivery)"),
-        ("pregnant_unknown", "I'm not sure / prefer not to say")
-    ]
-
     private var step3: some View {
         VStack(alignment: .leading, spacing: 16) {
             stepTitle("Pre-existing Conditions")
-            Text("Tap to select all that apply. These load automatically during triage.")
+            Text("Select all that apply. These load automatically at triage start.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-
-            ForEach(Self.nonPregnancyConditions, id: \.conditionId) { entry in
-                Toggle(entry.displayName, isOn: Binding(
-                    get: { vm.selectedConditions.contains(entry.conditionId) },
-                    set: { on in
-                        if on { vm.selectedConditions.insert(entry.conditionId) }
-                        else { vm.selectedConditions.remove(entry.conditionId) }
-                    }
-                ))
-            }
-
-            // Pregnancy — only shown for female
-            if vm.biologicalSex == .female {
-                VStack(alignment: .leading, spacing: 0) {
-                    Toggle("Pregnancy", isOn: Binding(
-                        get: { vm.isPregnantToggleOn },
-                        set: { vm.setPregnantToggle($0) }
-                    ))
-
-                    if vm.isPregnantToggleOn {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Which stage?")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                                .padding(.top, 8)
-
-                            ForEach(Self.trimesterOptions, id: \.0) { id, label in
-                                Button(action: { vm.selectTrimester(id) }) {
-                                    HStack {
-                                        Text(label)
-                                            .font(.subheadline)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                        if vm.selectedTrimesterId == id {
-                                            Image(systemName: "checkmark.circle.fill")
-                                                .foregroundColor(.red)
-                                        }
-                                    }
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .background(vm.selectedTrimesterId == id
-                                        ? Color.red.opacity(0.08)
-                                        : Color.gray.opacity(0.06))
-                                    .cornerRadius(8)
-                                }
-                            }
-                        }
-                        .padding(.leading, 16)
-                        .padding(.bottom, 4)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                    }
-                }
-                .animation(.easeInOut(duration: 0.2), value: vm.isPregnantToggleOn)
-            }
-
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Other condition (optional)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                TextField("Describe any other condition", text: $vm.conditionOtherNote)
-                    .textFieldStyle(.roundedBorder)
-            }
+            ConditionToggleView(vm: vm.conditionToggleVM)
         }
     }
 
@@ -338,7 +265,7 @@ struct ProfileCreationView: View {
             reviewRow(title: "Biological Sex", value: profile.biologicalSex.rawValue, step: 2)
             reviewRow(title: "Blood Type", value: profile.bloodType.rawValue, step: 2)
             reviewRow(title: "Conditions",
-                value: conditionsDisplayValue(profile.conditions),
+                value: conditionsDisplayValue(vm.conditionToggleVM.exportConditionIds()),
                 step: 3)
             reviewRow(title: "Medications",
                 value: profile.medications.isEmpty ? "None" : profile.medications.joined(separator: ", "),

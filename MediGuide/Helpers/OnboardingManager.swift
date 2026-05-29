@@ -2,27 +2,24 @@ import Foundation
 
 enum OnboardingManager {
 
-    private static let profileCreatedKey = "mediguide.profileCreated"
-    private static let permanentlySkippedKey = "mediguide.onboardingSkipped"
-
     static var hasCompletedSetup: Bool {
-        UserDefaults.standard.bool(forKey: profileCreatedKey)
+        UserDefaults.standard.bool(forKey: StorageKeys.Defaults.profileCreated)
     }
 
     static var hasPermanentlySkipped: Bool {
-        UserDefaults.standard.bool(forKey: permanentlySkippedKey)
+        UserDefaults.standard.bool(forKey: StorageKeys.Defaults.permanentlySkipped)
     }
 
     static func markProfileCreated() {
-        UserDefaults.standard.set(true, forKey: profileCreatedKey)
+        UserDefaults.standard.set(true, forKey: StorageKeys.Defaults.profileCreated)
     }
 
     static func resetProfileCreated() {
-        UserDefaults.standard.set(false, forKey: profileCreatedKey)
+        UserDefaults.standard.set(false, forKey: StorageKeys.Defaults.profileCreated)
     }
 
     static func markPermanentlySkipped() {
-        UserDefaults.standard.set(true, forKey: permanentlySkippedKey)
+        UserDefaults.standard.set(true, forKey: StorageKeys.Defaults.permanentlySkipped)
     }
 
     // Returns true if the creation screen should be shown on launch

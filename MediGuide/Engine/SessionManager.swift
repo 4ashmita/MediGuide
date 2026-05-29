@@ -24,23 +24,48 @@ final class SessionManager: ObservableObject {
         navigationManager.restart()
         NotificationManager.cancelCheckIn()
 
-        engine.session.sessionStartTime = Date()
-        engine.session.isActive = true
+        engine.setSessionStartTime(Date())
+        engine.setSessionActive(true)
 
         if let profile = profile {
-            engine.session.profileUsed = true
+            engine.setProfileUsed(true)
             engine.setAgeGroup(profile.ageGroup)
             for modifier in ProfileMapper.modifiers(from: profile) {
                 engine.addModifier(modifier.modifierId)
             }
+            engine.setEmergencyContact(name: profile.emergencyContactName,
+                                       phone: profile.emergencyContactPhone)
+            autoDetectAdvancedMaternalAge(profile: profile)
             appState.isProfileLoaded = true
             appState.activeProfileName = profile.displayName
         } else {
-            engine.session.profileUsed = false
+            engine.setProfileUsed(false)
             appState.isProfileLoaded = false
             appState.activeProfileName = nil
         }
 
+        appState.isSessionActive = true
+        appState.activeScreen = .triage
+    }
+
+    func startManualSession(ageGroup: AgeGroup, conditions: [String]) {
+        engine.reset()
+        navigationManager.restart()
+        NotificationManager.cancelCheckIn()
+
+        engine.setSessionStartTime(Date())
+        engine.setSessionActive(true)
+        engine.setProfileUsed(false)
+
+        engine.setAgeGroup(ageGroup)
+        for conditionId in conditions {
+            if let entry = ConditionList.entry(for: conditionId) {
+                engine.addModifier(entry.modifierId)
+            }
+        }
+
+        appState.isProfileLoaded = false
+        appState.activeProfileName = nil
         appState.isSessionActive = true
         appState.activeScreen = .triage
     }
@@ -64,6 +89,20 @@ final class SessionManager: ObservableObject {
         appState.activeProfileName = nil
         appState.isEmergencyCountdownRunning = false
         appState.activeScreen = .welcome
+    }
+
+    // MARK: - Helpers
+
+    private static let pregnancyConditionIds: Set<String> = [
+        "pregnant_t1", "pregnant_t2", "pregnant_t3", "postpartum", "pregnant_unknown"
+    ]
+
+    private func autoDetectAdvancedMaternalAge(profile: UserProfile) {
+        let hasPregnancy = profile.conditions.contains { Self.pregnancyConditionIds.contains($0) }
+        let alreadyFlagged = profile.conditions.contains("advanced_maternal_age")
+        if hasPregnancy && profile.age >= 35 && !alreadyFlagged {
+            engine.addModifier("advanced_maternal_age")
+        }
     }
 
     // MARK: - Foreground / Background

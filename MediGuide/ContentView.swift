@@ -34,6 +34,8 @@ struct ContentView: View {
                 )
             case .welcome:
                 WelcomeView()
+            case .profileSelection:
+                ProfileSelectionView()
             case .triage:
                 QuestionView()
             case .results:

@@ -4,6 +4,7 @@ import Combine
 enum AppScreen {
     case profileCreation
     case welcome
+    case profileSelection
     case triage
     case results
 }

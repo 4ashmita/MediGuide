@@ -33,6 +33,7 @@ struct UserProfile: Codable, Identifiable {
     var emergencyContactPhone: String = ""
     var dateCreated: Date = Date()
     var dateModified: Date = Date()
+    var lastUsed: Date = Date()
 
     var ageGroup: AgeGroup {
         let age = Calendar.current.dateComponents([.year], from: dateOfBirth, to: Date()).year ?? 0

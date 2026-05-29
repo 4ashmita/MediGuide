@@ -289,7 +289,10 @@
     "upper_abdominal_pain_right": 6,
     "swelling_sudden": 5,
     "sudden_shortness_of_breath": 7,
-    "sudden_nausea_late_pregnancy": 5
+    "sudden_nausea_late_pregnancy": 5,
+    "hives_sudden": 5,
+    "throat_tightening": 8,
+    "insect_sting": 2
   },
   "modifierWeights": {
     "age_under_2": 4,
@@ -334,7 +337,11 @@
     "first_pregnancy": 2,
     "preeclampsia_history": 4,
     "multiple_gestation": 3,
-    "advanced_maternal_age": 2
+    "advanced_maternal_age": 2,
+    "recent_medication_change": 2,
+    "anaphylactic_allergy": 6,
+    "severe_allergy": 3,
+    "insect_allergy": 2
   },
   "hardOverrides": [
     "unconscious",

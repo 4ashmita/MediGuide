@@ -15,12 +15,10 @@ struct ProfileSummary: Identifiable {
     }
 }
 
-// Sensitive fields stored in Keychain
+// Sensitive fields stored in Keychain (medications and allergies have their own separate keys)
 private struct SensitiveProfileData: Codable {
     var conditions: [String]
     var conditionOtherNote: String
-    var medications: [String]
-    var allergies: [String]
     var emergencyContactName: String
     var emergencyContactPhone: String
 }
@@ -37,6 +35,8 @@ enum ProfileStore {
     static func save(_ profile: UserProfile) throws {
         saveNonSensitive(profile)
         try saveSensitive(profile)
+        MedicationStore.save(profile.medications, profileId: profile.id)
+        AllergyStore.save(profile.allergies, profileId: profile.id)
 
         var ids = loadProfileIds()
         if !ids.contains(profile.id) { ids.append(profile.id) }
@@ -92,6 +92,8 @@ enum ProfileStore {
     static func delete(id: UUID) {
         removeNonSensitive(id: id)
         KeychainManager.delete(for: StorageKeys.Keychain.sensitiveData(for: id))
+        MedicationStore.deleteAll(profileId: id)
+        AllergyStore.deleteAll(profileId: id)
 
         var ids = loadProfileIds()
         ids.removeAll { $0 == id }
@@ -185,8 +187,6 @@ enum ProfileStore {
         let data = SensitiveProfileData(
             conditions: profile.conditions,
             conditionOtherNote: profile.conditionOtherNote,
-            medications: profile.medications,
-            allergies: profile.allergies,
             emergencyContactName: profile.emergencyContactName,
             emergencyContactPhone: profile.emergencyContactPhone
         )
@@ -214,8 +214,8 @@ enum ProfileStore {
         profile.lastUsed = non.lastUsed
         profile.conditions = sensitive.conditions
         profile.conditionOtherNote = sensitive.conditionOtherNote
-        profile.medications = sensitive.medications
-        profile.allergies = sensitive.allergies
+        profile.medications = MedicationStore.load(profileId: id)
+        profile.allergies = AllergyStore.load(profileId: id)
         profile.emergencyContactName = sensitive.emergencyContactName
         profile.emergencyContactPhone = sensitive.emergencyContactPhone
         return profile

@@ -66,6 +66,11 @@ final class TriageEngine: ObservableObject {
         session.sessionEmergencyContactPhone = phone
     }
 
+    func setSessionMedicationList(_ list: String) { session.sessionMedicationList = list }
+    func setRecentMedicationDetected(_ detected: Bool) { session.recentMedicationDetected = detected }
+    func setSessionAllergyList(_ list: String) { session.sessionAllergyList = list }
+    func setAllergyAnaphylacticPresent(_ present: Bool) { session.allergyAnaphylacticPresent = present }
+
     func triggerInstinctOverride() {
         guard currentTier != .call911 else { return }
         session.instinctOverrideUsed = true
@@ -165,6 +170,11 @@ final class TriageEngine: ObservableObject {
             }
         }
 
+        // Anaphylaxis combination rules — insect sting + allergy, or anaphylactic allergy + reaction symptoms
+        if checkAnaphylaxisCombination() {
+            tier = .call911
+        }
+
         applyTier(tier)
     }
 
@@ -197,6 +207,31 @@ final class TriageEngine: ObservableObject {
         let threshold = hasRiskFactor ? 1 : 2
 
         return preeclampsiaSymptomCount >= threshold ? .goToER : nil
+    }
+
+    // MARK: - Anaphylaxis Combination Rules
+
+    private static let anaphylaxisReactionSymptoms: Set<String> = [
+        "throat_tightening", "hives_sudden", "difficulty_breathing",
+        "sudden_shortness_of_breath", "swelling_sudden"
+    ]
+
+    private func checkAnaphylaxisCombination() -> Bool {
+        let activeModifierIds = Set(session.modifiers.map { $0.modifierId })
+        let activeSymptomIds = Set(session.symptoms.map { $0.symptomId })
+
+        // Insect sting + insect allergy → always 911
+        if activeSymptomIds.contains("insect_sting") && activeModifierIds.contains("insect_allergy") {
+            return true
+        }
+
+        // Known anaphylactic allergy + any anaphylaxis reaction symptom → 911
+        if activeModifierIds.contains("anaphylactic_allergy")
+            && activeSymptomIds.intersects(Self.anaphylaxisReactionSymptoms) {
+            return true
+        }
+
+        return false
     }
 
     private func applyTier(_ tier: RecommendationTier) {

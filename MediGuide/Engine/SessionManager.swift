@@ -36,6 +36,8 @@ final class SessionManager: ObservableObject {
             engine.setEmergencyContact(name: profile.emergencyContactName,
                                        phone: profile.emergencyContactPhone)
             autoDetectAdvancedMaternalAge(profile: profile)
+            applyMedicationContext(profile: profile)
+            applyAllergyContext(profile: profile)
             appState.isProfileLoaded = true
             appState.activeProfileName = profile.displayName
         } else {
@@ -96,6 +98,40 @@ final class SessionManager: ObservableObject {
     private static let pregnancyConditionIds: Set<String> = [
         "pregnant_t1", "pregnant_t2", "pregnant_t3", "postpartum", "pregnant_unknown"
     ]
+
+    private func applyAllergyContext(profile: UserProfile) {
+        let allergies = profile.allergies
+        guard !allergies.isEmpty else { return }
+
+        let hasAnaphylactic = allergies.contains { $0.severity == .anaphylactic }
+        let hasSevere = allergies.contains { $0.severity == .severe }
+        let hasInsect = allergies.contains { $0.category == .insect }
+
+        if hasAnaphylactic {
+            engine.addModifier("anaphylactic_allergy")
+            engine.setAllergyAnaphylacticPresent(true)
+        }
+        if hasSevere {
+            engine.addModifier("severe_allergy")
+        }
+        if hasInsect {
+            engine.addModifier("insect_allergy")
+        }
+
+        let formatted = EmergencyDataFormatter.smsAllergyLine(allergies)
+        engine.setSessionAllergyList(formatted)
+    }
+
+    private func applyMedicationContext(profile: UserProfile) {
+        let thirtyDaysAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date()
+        let hasRecent = profile.medications.contains { $0.dateAdded >= thirtyDaysAgo }
+        if hasRecent {
+            engine.addModifier("recent_medication_change")
+            engine.setRecentMedicationDetected(true)
+        }
+        let formatted = EmergencyDataFormatter.smsMedicationLine(profile.medications)
+        engine.setSessionMedicationList(formatted)
+    }
 
     private func autoDetectAdvancedMaternalAge(profile: UserProfile) {
         let hasPregnancy = profile.conditions.contains { Self.pregnancyConditionIds.contains($0) }

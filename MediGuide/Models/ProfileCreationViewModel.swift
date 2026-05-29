@@ -28,13 +28,11 @@ final class ProfileCreationViewModel: ObservableObject {
 
     // MARK: - Step 4: Medications
 
-    @Published var medications: [String] = []
-    @Published var newMedication: String = ""
+    let medicationListVM = MedicationListViewModel()
 
     // MARK: - Step 5: Allergies
 
-    @Published var allergies: [String] = []
-    @Published var newAllergy: String = ""
+    let allergyListVM = AllergyListViewModel()
 
     // MARK: - Step 6: Emergency contact
 
@@ -69,28 +67,6 @@ final class ProfileCreationViewModel: ObservableObject {
 
     // MARK: - List helpers
 
-    func addMedication() {
-        let trimmed = newMedication.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty, !medications.contains(trimmed) else { return }
-        medications.append(trimmed)
-        newMedication = ""
-    }
-
-    func removeMedication(at offsets: IndexSet) {
-        medications.remove(atOffsets: offsets)
-    }
-
-    func addAllergy() {
-        let trimmed = newAllergy.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty, !allergies.contains(trimmed) else { return }
-        allergies.append(trimmed)
-        newAllergy = ""
-    }
-
-    func removeAllergy(at offsets: IndexSet) {
-        allergies.remove(atOffsets: offsets)
-    }
-
     // MARK: - Save
 
     @discardableResult
@@ -121,8 +97,8 @@ final class ProfileCreationViewModel: ObservableObject {
         profile.bloodType = bloodType
         profile.conditions = conditionToggleVM.exportConditionIds()
         profile.conditionOtherNote = conditionToggleVM.otherNote
-        profile.medications = medications
-        profile.allergies = allergies
+        profile.medications = medicationListVM.entries
+        profile.allergies = allergyListVM.entries
         profile.emergencyContactName = emergencyContactName
         profile.emergencyContactPhone = emergencyContactPhone
         return profile

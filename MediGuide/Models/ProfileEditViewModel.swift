@@ -16,10 +16,10 @@ final class ProfileEditViewModel: ObservableObject {
     @Published var dateOfBirth: Date = Date()
     @Published var biologicalSex: BiologicalSex = .preferNotToSay
     @Published var bloodType: BloodType = .unknown
-    @Published var medications: [String] = []
-    @Published var newMedication: String = ""
-    @Published var allergies: [String] = []
-    @Published var newAllergy: String = ""
+    private(set) var medicationListVM = MedicationListViewModel()
+    private var medicationCancellable: AnyCancellable?
+    private(set) var allergyListVM = AllergyListViewModel()
+    private var allergyCancellable: AnyCancellable?
     @Published var emergencyContactName: String = ""
     @Published var emergencyContactPhone: String = ""
 
@@ -61,8 +61,10 @@ final class ProfileEditViewModel: ObservableObject {
         dateOfBirth = profile.dateOfBirth
         biologicalSex = profile.biologicalSex
         bloodType = profile.bloodType
-        medications = profile.medications
-        allergies = profile.allergies
+        medicationListVM = MedicationListViewModel(initialEntries: profile.medications)
+        observeMedicationChanges()
+        allergyListVM = AllergyListViewModel(initialEntries: profile.allergies)
+        observeAllergyChanges()
         emergencyContactName = profile.emergencyContactName
         emergencyContactPhone = profile.emergencyContactPhone
 
@@ -73,6 +75,22 @@ final class ProfileEditViewModel: ObservableObject {
         observeConditionChanges()
     }
 
+    private func observeMedicationChanges() {
+        medicationCancellable = medicationListVM.objectWillChange.sink { [weak self] in
+            guard let self else { return }
+            self.changeTracker.track("medications", current: self.medicationListVM.entries)
+            self.objectWillChange.send()
+        }
+    }
+
+    private func observeAllergyChanges() {
+        allergyCancellable = allergyListVM.objectWillChange.sink { [weak self] in
+            guard let self else { return }
+            self.changeTracker.track("allergies", current: self.allergyListVM.entries)
+            self.objectWillChange.send()
+        }
+    }
+
     private func observeConditionChanges() {
         conditionCancellable = conditionToggleVM.objectWillChange.sink { [weak self] in
             guard let self else { return }
@@ -81,34 +99,6 @@ final class ProfileEditViewModel: ObservableObject {
             self.changeTracker.track("conditionOtherNote", current: self.conditionToggleVM.otherNote)
             self.objectWillChange.send()
         }
-    }
-
-    // MARK: - List helpers
-
-    func addMedication() {
-        let trimmed = newMedication.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty, !medications.contains(trimmed) else { return }
-        medications.append(trimmed)
-        newMedication = ""
-        changeTracker.track("medications", current: medications)
-    }
-
-    func removeMedication(at offsets: IndexSet) {
-        medications.remove(atOffsets: offsets)
-        changeTracker.track("medications", current: medications)
-    }
-
-    func addAllergy() {
-        let trimmed = newAllergy.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty, !allergies.contains(trimmed) else { return }
-        allergies.append(trimmed)
-        newAllergy = ""
-        changeTracker.track("allergies", current: allergies)
-    }
-
-    func removeAllergy(at offsets: IndexSet) {
-        allergies.remove(atOffsets: offsets)
-        changeTracker.track("allergies", current: allergies)
     }
 
     // MARK: - Change tracking
@@ -160,8 +150,8 @@ final class ProfileEditViewModel: ObservableObject {
         profile.bloodType = bloodType
         profile.conditions = conditionToggleVM.exportConditionIds()
         profile.conditionOtherNote = conditionToggleVM.otherNote
-        profile.medications = medications
-        profile.allergies = allergies
+        profile.medications = medicationListVM.entries
+        profile.allergies = allergyListVM.entries
         profile.emergencyContactName = emergencyContactName
         profile.emergencyContactPhone = emergencyContactPhone
         return profile

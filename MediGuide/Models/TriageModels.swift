@@ -117,6 +117,10 @@ struct TriageSession {
     var profileUsed: Bool = false
     var sessionEmergencyContactName: String = ""
     var sessionEmergencyContactPhone: String = ""
+    var sessionMedicationList: String = ""
+    var recentMedicationDetected: Bool = false
+    var sessionAllergyList: String = ""
+    var allergyAnaphylacticPresent: Bool = false
 }
 
 // MARK: - JSON Decodable Models

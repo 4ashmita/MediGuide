@@ -113,30 +113,10 @@ struct ProfileEditView: View {
 
     private var medicationsSection: some View {
         editSection(title: "Medications") {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    TextField("Add medication", text: $vm.newMedication)
-                        .textFieldStyle(.roundedBorder)
-                    Button(action: vm.addMedication) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2).foregroundColor(.red)
-                    }
-                    .disabled(vm.newMedication.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
-
-                ForEach(vm.medications, id: \.self) { med in
-                    HStack {
-                        Text(med).font(.subheadline)
-                        Spacer()
-                        Button { vm.medications.removeAll { $0 == med }
-                            vm.trackField("medications") } label: {
-                            Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                    Divider()
-                }
+            NavigationStack {
+                MedicationListView(vm: vm.medicationListVM)
             }
+            .frame(minHeight: 200)
         }
     }
 
@@ -144,30 +124,10 @@ struct ProfileEditView: View {
 
     private var allergiesSection: some View {
         editSection(title: "Known Allergies") {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    TextField("Add allergy", text: $vm.newAllergy)
-                        .textFieldStyle(.roundedBorder)
-                    Button(action: vm.addAllergy) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2).foregroundColor(.red)
-                    }
-                    .disabled(vm.newAllergy.trimmingCharacters(in: .whitespaces).isEmpty)
-                }
-
-                ForEach(vm.allergies, id: \.self) { allergy in
-                    HStack {
-                        Text(allergy).font(.subheadline)
-                        Spacer()
-                        Button { vm.allergies.removeAll { $0 == allergy }
-                            vm.trackField("allergies") } label: {
-                            Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                    Divider()
-                }
+            NavigationStack {
+                AllergyListView(vm: vm.allergyListVM)
             }
+            .frame(minHeight: 220)
         }
     }
 

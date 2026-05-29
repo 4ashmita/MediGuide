@@ -27,8 +27,8 @@ struct UserProfile: Codable, Identifiable {
     var bloodType: BloodType = .unknown
     var conditions: [String] = []
     var conditionOtherNote: String = ""
-    var medications: [String] = []
-    var allergies: [String] = []
+    var medications: [MedicationEntry] = []
+    var allergies: [AllergyEntry] = []
     var emergencyContactName: String = ""
     var emergencyContactPhone: String = ""
     var dateCreated: Date = Date()

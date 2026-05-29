@@ -25,6 +25,8 @@ enum StorageKeys {
     enum Keychain {
         static let encryptionMasterKey = "mediguide.encryption.masterKey"
 
-        static func sensitiveData(for id: UUID) -> String { "mediguide.profile.\(id).sensitive" }
+        static func sensitiveData(for id: UUID)  -> String { "mediguide.profile.\(id).sensitive" }
+        static func medications(for id: UUID)    -> String { "mediguide.profile.\(id).medications" }
+        static func allergies(for id: UUID)      -> String { "mediguide.profile.\(id).allergies" }
     }
 }

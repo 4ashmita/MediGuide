@@ -153,34 +153,10 @@ struct ProfileCreationView: View {
             Text("Names only — no dosage needed. This list can be shared with emergency responders.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-
-            HStack {
-                TextField("Add medication", text: $vm.newMedication)
-                    .textFieldStyle(.roundedBorder)
-                Button(action: vm.addMedication) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                }
-                .disabled(vm.newMedication.trimmingCharacters(in: .whitespaces).isEmpty)
+            NavigationStack {
+                MedicationListView(vm: vm.medicationListVM)
             }
-
-            if !vm.medications.isEmpty {
-                ForEach(vm.medications, id: \.self) { med in
-                    HStack {
-                        Text(med)
-                        Spacer()
-                        Button {
-                            vm.medications.removeAll { $0 == med }
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                    Divider()
-                }
-            }
+            .frame(minHeight: 200)
         }
     }
 
@@ -189,37 +165,13 @@ struct ProfileCreationView: View {
     private var step5: some View {
         VStack(alignment: .leading, spacing: 16) {
             stepTitle("Known Allergies")
-            Text("Particularly important for medication allergies.")
+            Text("Include medication allergies — paramedics need this before administering anything.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-
-            HStack {
-                TextField("Add allergy", text: $vm.newAllergy)
-                    .textFieldStyle(.roundedBorder)
-                Button(action: vm.addAllergy) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                }
-                .disabled(vm.newAllergy.trimmingCharacters(in: .whitespaces).isEmpty)
+            NavigationStack {
+                AllergyListView(vm: vm.allergyListVM)
             }
-
-            if !vm.allergies.isEmpty {
-                ForEach(vm.allergies, id: \.self) { allergy in
-                    HStack {
-                        Text(allergy)
-                        Spacer()
-                        Button {
-                            vm.allergies.removeAll { $0 == allergy }
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                    Divider()
-                }
-            }
+            .frame(minHeight: 220)
         }
     }
 
@@ -268,10 +220,10 @@ struct ProfileCreationView: View {
                 value: conditionsDisplayValue(vm.conditionToggleVM.exportConditionIds()),
                 step: 3)
             reviewRow(title: "Medications",
-                value: profile.medications.isEmpty ? "None" : profile.medications.joined(separator: ", "),
+                value: profile.medications.isEmpty ? "None" : profile.medications.map { $0.name }.joined(separator: ", "),
                 step: 4)
             reviewRow(title: "Allergies",
-                value: profile.allergies.isEmpty ? "None" : profile.allergies.joined(separator: ", "),
+                value: profile.allergies.isEmpty ? "None" : profile.allergies.map { $0.allergen }.joined(separator: ", "),
                 step: 5)
             reviewRow(title: "Emergency Contact",
                 value: profile.emergencyContactName.isEmpty ? "Not set" : "\(profile.emergencyContactName) · \(profile.emergencyContactPhone)",

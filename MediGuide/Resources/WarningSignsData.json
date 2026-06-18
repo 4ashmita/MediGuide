@@ -1,0 +1,187 @@
+{
+  "universalWarnings": {
+    "CALL_911": [
+      "Person becomes unconscious or unresponsive",
+      "Breathing stops or becomes extremely difficult",
+      "Severe bleeding that cannot be controlled",
+      "Seizure lasts more than 5 minutes",
+      "Symptoms rapidly worsen in any way"
+    ],
+    "GO_TO_ER": [
+      "Chest pain or pressure develops",
+      "Difficulty breathing or shortness of breath",
+      "Confusion or decreased alertness",
+      "Loss of consciousness, even briefly",
+      "Severe bleeding that will not stop",
+      "Stroke symptoms: face drooping, arm weakness, speech difficulty",
+      "Seizure occurs",
+      "Symptoms suddenly worsen significantly",
+      "You feel unable to safely drive to the hospital"
+    ],
+    "URGENT_CARE": [
+      "Pain becomes severe or unbearable",
+      "Fever rises above 103°F",
+      "Vomiting blood or blood in stool",
+      "Chest pain or difficulty breathing develops",
+      "Confusion or severe dizziness",
+      "Severe headache or worst headache of your life",
+      "Symptoms suddenly change or worsen",
+      "You feel something is seriously wrong"
+    ],
+    "MONITOR": [
+      "Symptoms worsen instead of improving",
+      "Symptoms persist longer than 48 hours",
+      "Fever develops",
+      "Chest pain or difficulty breathing develops",
+      "Confusion or altered mental state",
+      "Vomiting blood or blood in stool",
+      "Severe headache or stiff neck",
+      "Rash with fever",
+      "Unable to keep down fluids",
+      "You feel instinctively that something is wrong"
+    ]
+  },
+  "symptomSpecificWarnings": {
+    "mild_headache": [
+      "Headache becomes the worst of your life",
+      "Headache with stiff neck or fever",
+      "Vision changes or seeing spots",
+      "Confusion or difficulty speaking",
+      "Headache after a head injury",
+      "Sudden thunderclap onset"
+    ],
+    "high_fever": [
+      "Fever rises above 103°F in adults or 104°F in children",
+      "Fever with severe headache and stiff neck",
+      "Fever with rash that does not blanch when pressed",
+      "Fever with confusion or altered behavior",
+      "Fever persists longer than 3 days without improvement"
+    ],
+    "high_fever_infant": [
+      "Fever above 100.4°F in infant under 3 months — go immediately",
+      "Infant becomes difficult to wake or unusually limp",
+      "Fever with a bulging soft spot on the head",
+      "Fever with a rash that does not blanch",
+      "Infant refuses all feeds for more than 8 hours"
+    ],
+    "chest_pain": [
+      "Pain becomes severe or crushing",
+      "Pain spreads to arm, jaw, neck, or back",
+      "Pain with shortness of breath",
+      "Pain with sweating, nausea, or lightheadedness",
+      "Pain worsens with activity"
+    ],
+    "difficulty_breathing": [
+      "Breathing becomes extremely labored or stops",
+      "Lips, fingernails, or skin turn blue",
+      "Cannot speak in full sentences",
+      "Wheezing worsens significantly",
+      "Chest pain develops alongside breathing difficulty"
+    ],
+    "wheezing": [
+      "Wheezing becomes severe or breathing is labored",
+      "Lips or skin begin to turn blue",
+      "Child cannot speak or cry normally",
+      "Inhaler provides no relief after two doses",
+      "Breathing rate increases significantly"
+    ],
+    "nausea": [
+      "Vomiting blood or coffee-ground material",
+      "Unable to keep down any fluids for 8 or more hours",
+      "Signs of dehydration: no urination, extreme thirst, severe dizziness",
+      "Severe abdominal pain develops",
+      "Vomiting with severe headache or stiff neck"
+    ],
+    "vomiting_infant": [
+      "Infant cannot keep down any feeds for more than 6 hours",
+      "Signs of dehydration: sunken fontanelle, no wet diapers, dry mouth",
+      "Vomit contains blood or green bile",
+      "Infant becomes unusually drowsy or limp",
+      "Severe abdominal pain or bloating develops"
+    ],
+    "dizziness": [
+      "Dizziness with chest pain",
+      "Fainting or loss of consciousness",
+      "Dizziness with severe headache",
+      "Dizziness with sudden numbness or weakness",
+      "Dizziness with vision changes or double vision"
+    ],
+    "severe_bleeding": [
+      "Bleeding cannot be controlled with firm pressure after 10 minutes",
+      "Blood is spurting or pulsing from the wound",
+      "Person shows signs of shock: pale, cold, clammy skin",
+      "Person loses consciousness",
+      "Bleeding from a major body area such as the neck or abdomen"
+    ],
+    "confusion": [
+      "Confusion becomes severe or person cannot recognize familiar people",
+      "Person loses consciousness or cannot be woken",
+      "Sudden severe headache develops",
+      "Weakness or numbness on one side of the body",
+      "Slurred speech or difficulty speaking"
+    ],
+    "sudden_confusion_elderly": [
+      "Confusion becomes severe or worsens rapidly",
+      "Person cannot state their name or location",
+      "New weakness or inability to stand develops",
+      "Fever develops alongside confusion",
+      "Person loses consciousness or cannot be roused"
+    ],
+    "fall_with_injury": [
+      "Head injury with loss of consciousness, even briefly",
+      "Inability to bear weight or move the injured area",
+      "Visible bone deformity or bone breaking the skin",
+      "Severe pain that is worsening",
+      "Numbness or tingling in the affected limb"
+    ],
+    "fall_unable_to_get_up": [
+      "Person cannot move one or both legs",
+      "Severe hip or back pain preventing any movement",
+      "Person has been on the floor for more than 1 hour",
+      "Signs of shock: pale, cold, or clammy skin",
+      "Head injury occurred during the fall"
+    ],
+    "seizure": [
+      "Seizure lasts longer than 5 minutes",
+      "Person does not regain consciousness after seizure stops",
+      "Second seizure occurs within 24 hours",
+      "Person is injured during the seizure",
+      "Seizure occurs in water"
+    ],
+    "stroke_symptoms": [
+      "Any new face drooping, arm weakness, or speech difficulty — call 911 immediately",
+      "Sudden vision loss in one or both eyes",
+      "Sudden severe headache with no known cause",
+      "Sudden loss of balance or coordination",
+      "Symptoms resolve briefly then return"
+    ],
+    "rapid_heartrate": [
+      "Heart rate remains above 150 beats per minute",
+      "Racing heart with chest pain or shortness of breath",
+      "Fainting or near-fainting occurs",
+      "Palpitations with severe dizziness",
+      "Heart rate is irregular and very fast"
+    ],
+    "low_oxygen": [
+      "Oxygen reading drops below 90%",
+      "Lips or skin begin to turn blue",
+      "Cannot speak in full sentences due to breathlessness",
+      "Breathing becomes extremely labored",
+      "Confusion or altered mental state develops"
+    ],
+    "rash_with_fever_child": [
+      "Rash does not blanch or fade when pressed with a glass",
+      "Rash spreads rapidly within minutes to hours",
+      "Child becomes very drowsy, limp, or difficult to wake",
+      "Stiff neck develops alongside rash and fever",
+      "Rash appears purplish or blood-red in color"
+    ],
+    "urinary_symptoms_elderly": [
+      "Fever develops alongside urinary symptoms",
+      "Flank or back pain develops — possible kidney involvement",
+      "Person becomes confused or disoriented",
+      "Unable to urinate despite feeling the urge",
+      "Blood in urine that is significant or persistent"
+    ]
+  }
+}

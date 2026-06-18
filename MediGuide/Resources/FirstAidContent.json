@@ -1,0 +1,416 @@
+{
+  "cpr_adult": {
+    "title": "CPR — Adult",
+    "subtitle": "For adults and teenagers 13 and older",
+    "steps": [
+      {
+        "id": "cpr_adult_1",
+        "instruction": "Check that the scene is safe before approaching.",
+        "detail": "Look for traffic, fire, electrical hazards, unstable structures, or dangerous people. Do not put yourself at risk.",
+        "illustrationKey": "scene_safety"
+      },
+      {
+        "id": "cpr_adult_2",
+        "instruction": "Tap the person's shoulders firmly and shout: 'Are you okay?'",
+        "detail": "If they respond, keep them still and call for help. If there is no response, they are unresponsive — proceed immediately.",
+        "illustrationKey": "check_responsiveness"
+      },
+      {
+        "id": "cpr_adult_3",
+        "instruction": "Call 911 now, or send someone else to call while you begin.",
+        "detail": "Tell the dispatcher your location, that the person is unresponsive and not breathing normally. Stay on the line — the dispatcher will guide you.",
+        "warning": "Do not leave the person alone to call 911 if you are the only one present. Call first if a phone is within reach, then start CPR."
+      },
+      {
+        "id": "cpr_adult_4",
+        "instruction": "Roll the person onto their back on a firm, flat surface.",
+        "detail": "A hard floor gives your compressions the most effect. A soft mattress absorbs force and reduces effectiveness significantly.",
+        "illustrationKey": "position_cpr"
+      },
+      {
+        "id": "cpr_adult_5",
+        "instruction": "Place the heel of one hand on the center of the chest, between the nipples. Place your other hand on top and interlace your fingers.",
+        "detail": "Keep your fingers lifted off the chest — only the heel of your bottom hand should touch. Lock your elbows straight.",
+        "illustrationKey": "hand_position_cpr",
+        "warning": "Do not place your hands too low — you will press on the stomach rather than the heart."
+      },
+      {
+        "id": "cpr_adult_6",
+        "instruction": "Push hard and fast — compress the chest at least 2 inches deep at a rate of 100 to 120 times per minute.",
+        "detail": "Let the chest fully rise between each compression. Count out loud to keep your rhythm. The metronome below will guide your pace.",
+        "illustrationKey": "compressions_cpr",
+        "warning": "It is normal to feel or hear ribs crack during compressions. Do not stop — effective compressions are more important.",
+        "isCPRTimer": true
+      },
+      {
+        "id": "cpr_adult_7",
+        "instruction": "After 30 compressions, open the airway: tilt the head back gently and lift the chin.",
+        "detail": "Place one hand on the forehead and two fingers under the chin. Tilt until the mouth slightly opens and the airway is straight.",
+        "illustrationKey": "airway_opening"
+      },
+      {
+        "id": "cpr_adult_8",
+        "instruction": "Give 2 rescue breaths: pinch the nose shut, seal your mouth over theirs, and breathe in for one second each.",
+        "detail": "Watch for the chest to rise with each breath. If it does not rise, reposition the head and try once more before resuming compressions.",
+        "illustrationKey": "rescue_breath",
+        "warning": "If you are not trained in rescue breaths or are uncomfortable, skip this step and continue with compressions only — compression-only CPR still saves lives."
+      },
+      {
+        "id": "cpr_adult_9",
+        "instruction": "Continue the cycle: 30 compressions then 2 breaths. Do not stop.",
+        "detail": "Continue until the person shows signs of life, an AED becomes available, a trained responder takes over, or you are physically unable to continue.",
+        "warning": "If an AED is available nearby, use it as soon as possible. AED instructions are simple and the device will guide you."
+      }
+    ]
+  },
+
+  "cpr_infant": {
+    "title": "CPR — Infant / Child",
+    "subtitle": "For infants under 1 year and children under 12",
+    "steps": [
+      {
+        "id": "cpr_infant_1",
+        "instruction": "Check for responsiveness: flick the bottom of the infant's foot. For a child, tap the shoulders and call their name.",
+        "detail": "Any movement, cry, or sound means they are responsive. No response means proceed immediately.",
+        "illustrationKey": "check_responsiveness"
+      },
+      {
+        "id": "cpr_infant_2",
+        "instruction": "Call 911 immediately or have someone call while you begin.",
+        "detail": "If you are alone with an infant, perform 2 minutes of CPR first, then call 911 — infants often respond within that time."
+      },
+      {
+        "id": "cpr_infant_3",
+        "instruction": "Place the infant on a firm flat surface on their back. For a child, position as you would an adult.",
+        "illustrationKey": "position_cpr"
+      },
+      {
+        "id": "cpr_infant_4",
+        "instruction": "For an infant: place two fingers on the center of the chest, just below the nipple line. For a child: use one or two hands as needed for their size.",
+        "detail": "Infant compressions use only two fingers — never a full hand. Child compressions use the heel of one hand on the center of the chest.",
+        "illustrationKey": "hand_position_infant",
+        "warning": "Two fingers only for infants — full hand compressions can cause serious internal injuries."
+      },
+      {
+        "id": "cpr_infant_5",
+        "instruction": "Compress 1.5 inches deep for infants, 2 inches for children. Push at 100 to 120 compressions per minute.",
+        "detail": "Allow the chest to fully recoil between each compression. The metronome below will guide your rhythm.",
+        "illustrationKey": "compressions_cpr",
+        "warning": "It is normal to feel movement under your fingers during compressions. Do not stop.",
+        "isCPRTimer": true
+      },
+      {
+        "id": "cpr_infant_6",
+        "instruction": "After 30 compressions, open the airway: for an infant, tilt the head to a neutral position — just slightly back, not all the way.",
+        "detail": "An infant's neck is very flexible. Over-tilting can close the airway. Just move to a neutral position so the nose points straight up.",
+        "illustrationKey": "airway_opening_infant",
+        "warning": "Do not tilt an infant's head as far back as an adult's — this can block rather than open the airway."
+      },
+      {
+        "id": "cpr_infant_7",
+        "instruction": "For an infant: cover both the nose and mouth with your mouth and give 2 small gentle breaths. For a child: pinch the nose and cover the mouth as with an adult.",
+        "detail": "Each breath should be just enough to make the chest rise — about 1 second each. Too much air can cause stomach inflation.",
+        "illustrationKey": "rescue_breath_infant"
+      },
+      {
+        "id": "cpr_infant_8",
+        "instruction": "Continue 30 compressions then 2 breaths. Do not stop until help arrives or the infant or child shows signs of life.",
+        "warning": "If an AED is available and the child is over 1 year old, use it. Use pediatric pads if available."
+      }
+    ]
+  },
+
+  "severe_bleeding": {
+    "title": "Severe Bleeding",
+    "subtitle": "Life-threatening blood loss",
+    "steps": [
+      {
+        "id": "bleeding_1",
+        "instruction": "Call 911 immediately.",
+        "detail": "Life-threatening bleeding requires emergency medical response. Make the call before doing anything else if another person can help."
+      },
+      {
+        "id": "bleeding_2",
+        "instruction": "Protect yourself: put on gloves if available, or use a plastic bag, extra clothing, or any barrier between your hands and the blood.",
+        "detail": "This protects you from bloodborne infection. Bare hands are acceptable if no barrier is available — your priority is stopping the bleeding.",
+        "illustrationKey": "hand_protection"
+      },
+      {
+        "id": "bleeding_3",
+        "instruction": "Apply firm direct pressure to the wound using the cleanest cloth available — gauze, a shirt, a towel.",
+        "detail": "Press with the heel of your hand using your full body weight. The pressure must be firm and uninterrupted.",
+        "illustrationKey": "direct_pressure"
+      },
+      {
+        "id": "bleeding_4",
+        "instruction": "Hold firm continuous pressure for at least 10 minutes without lifting the cloth to check.",
+        "detail": "Checking the wound disrupts the clotting process and restarts the bleeding clock. The timer below will track your 10 minutes.",
+        "timerSeconds": 600,
+        "warning": "Do not lift the cloth to check. If blood soaks through, add more cloth on top and press harder — never remove the first layer."
+      },
+      {
+        "id": "bleeding_5",
+        "instruction": "If the bleeding is from a limb and cannot be controlled with pressure, apply a tourniquet 2 to 3 inches above the wound.",
+        "detail": "Twist the tourniquet until the bleeding stops. Note the exact time of application on the person's skin with a pen if possible.",
+        "illustrationKey": "tourniquet",
+        "warning": "Once applied, do not remove the tourniquet under any circumstances. Only paramedics should remove it."
+      },
+      {
+        "id": "bleeding_6",
+        "instruction": "Elevate the injured area above the level of the heart if possible without causing more pain or injury.",
+        "detail": "Gravity reduces blood flow to the area and supports clotting. Do not elevate if you suspect a bone fracture.",
+        "illustrationKey": "elevate_limb"
+      },
+      {
+        "id": "bleeding_7",
+        "instruction": "Keep the person warm and as calm as possible. Treat for shock: lay them flat and elevate their legs about 12 inches unless a head, neck, or back injury is suspected.",
+        "detail": "Severe blood loss causes shock. The person may feel cold, confused, and very thirsty. Reassure them help is coming.",
+        "warning": "Do not give food or water — surgery may be required on arrival."
+      }
+    ]
+  },
+
+  "anaphylaxis": {
+    "title": "Anaphylaxis",
+    "subtitle": "Severe allergic reaction",
+    "steps": [
+      {
+        "id": "ana_1",
+        "instruction": "Call 911 immediately. Anaphylaxis can become fatal within minutes.",
+        "detail": "Even if an EpiPen is available, 911 must still be called. Epinephrine provides temporary relief — the person needs emergency evaluation."
+      },
+      {
+        "id": "ana_2",
+        "instruction": "Check for an epinephrine auto-injector (EpiPen). Check the person's bag, pockets, and any medical alert bracelet or wallet card.",
+        "detail": "Many people with known severe allergies carry an EpiPen. A bystander may also have one. Ask loudly: 'Does anyone have an EpiPen?'",
+        "illustrationKey": "search_epipen"
+      },
+      {
+        "id": "ana_3",
+        "instruction": "If an EpiPen is available: remove the blue safety cap. Press the orange tip firmly against the outer mid-thigh — through clothing is acceptable. Hold for 10 seconds.",
+        "detail": "You will hear a click when it activates. Keep firm pressure for the full 10 seconds to ensure the full dose is delivered.",
+        "timerSeconds": 10,
+        "illustrationKey": "epipen_use",
+        "warning": "Inject into the outer thigh only — never into a vein, buttock, or hand. If accidentally injected into a hand or finger, tell paramedics immediately."
+      },
+      {
+        "id": "ana_4",
+        "instruction": "After injection, massage the injection site for 10 seconds and note the time.",
+        "detail": "Epinephrine begins working within minutes. Symptoms may improve quickly — do not let the person get up or walk.",
+        "timerSeconds": 10
+      },
+      {
+        "id": "ana_5",
+        "instruction": "Position the person: lay them flat on their back with legs elevated. If they are having difficulty breathing, let them sit up slightly.",
+        "detail": "If unconscious, place them on their side in the recovery position to prevent choking. Never let someone in anaphylaxis stand or walk.",
+        "illustrationKey": "ana_position",
+        "warning": "If the person becomes unconscious and stops breathing normally, begin CPR immediately.",
+        "linkedEmergencyType": "cpr_adult"
+      },
+      {
+        "id": "ana_6",
+        "instruction": "If symptoms do not improve or return within 5 to 15 minutes, use a second EpiPen if available.",
+        "detail": "Many EpiPen kits come with two doses. Biphasic reactions — where symptoms return after initial improvement — are common in anaphylaxis.",
+        "timerSeconds": 300,
+        "warning": "Antihistamines like Benadryl are not effective for anaphylaxis. Do not substitute antihistamines for epinephrine."
+      },
+      {
+        "id": "ana_7",
+        "instruction": "Stay with the person until paramedics arrive. Keep them calm, warm, and still.",
+        "detail": "Even if they feel completely better, hospital evaluation is essential. Anaphylaxis can return hours later without a second exposure."
+      }
+    ]
+  },
+
+  "cardiac": {
+    "title": "Cardiac Emergency",
+    "subtitle": "Possible heart attack",
+    "steps": [
+      {
+        "id": "cardiac_1",
+        "instruction": "Call 911 immediately.",
+        "detail": "Time is critical in a heart attack. Every minute without treatment causes more heart muscle damage. Do not wait to see if symptoms improve."
+      },
+      {
+        "id": "cardiac_2",
+        "instruction": "Have the person sit or lie in the most comfortable position — often sitting up slightly, leaning back. Do not let them walk.",
+        "detail": "Physical exertion places more demand on an already stressed heart. Help them to the floor or a chair and keep them there.",
+        "illustrationKey": "cardiac_position"
+      },
+      {
+        "id": "cardiac_3",
+        "instruction": "Loosen any tight clothing around the neck and chest: collars, ties, scarves, bra straps.",
+        "detail": "Restricted clothing can increase discomfort and impede breathing.",
+        "illustrationKey": "loosen_clothing"
+      },
+      {
+        "id": "cardiac_4",
+        "instruction": "If the person is conscious, not allergic to aspirin, and has no known reason to avoid it: have them chew one regular adult aspirin (325 mg) or four low-dose aspirin (81 mg each).",
+        "detail": "Chewing rather than swallowing gets aspirin into the bloodstream faster. Aspirin reduces blood clot formation and can limit heart damage.",
+        "warning": "Do not give aspirin if the person is allergic, is already taking blood thinners, has active bleeding, or has had recent surgery. When in doubt, skip it."
+      },
+      {
+        "id": "cardiac_5",
+        "instruction": "Stay with the person, keep them calm, and speak reassuringly. Panic and anxiety increase the heart's oxygen demand.",
+        "detail": "Tell them help is coming, that they are not alone, and that they should try to breathe slowly and normally."
+      },
+      {
+        "id": "cardiac_6",
+        "instruction": "Note the exact time symptoms started and what the symptoms are — tell the paramedics this immediately when they arrive.",
+        "detail": "Symptom onset time determines which treatments are available. Some cardiac interventions have tight time windows.",
+        "illustrationKey": "time_recording"
+      },
+      {
+        "id": "cardiac_7",
+        "instruction": "Monitor consciousness and breathing. If the person becomes unconscious and stops breathing normally, begin CPR immediately.",
+        "detail": "Cardiac arrest — when the heart stops — can follow a heart attack. Be ready to begin CPR without delay.",
+        "warning": "Cardiac arrest and heart attack are different. Heart attack: person is conscious, in pain. Cardiac arrest: unconscious, not breathing. If you're not sure, start CPR.",
+        "linkedEmergencyType": "cpr_adult"
+      }
+    ]
+  },
+
+  "stroke": {
+    "title": "Stroke Response",
+    "subtitle": "Possible stroke or brain event",
+    "steps": [
+      {
+        "id": "stroke_1",
+        "instruction": "Call 911 immediately.",
+        "detail": "Stroke treatment is extremely time-sensitive. Clot-busting medication and interventions are only effective within a narrow time window. Every minute counts."
+      },
+      {
+        "id": "stroke_record_time",
+        "instruction": "Note the exact time symptoms first appeared. This is the most important piece of information for the treating team.",
+        "detail": "Stroke treatment decisions depend entirely on how long ago symptoms started. Use the button below to record the current time as symptom onset.",
+        "illustrationKey": "time_recording",
+        "warning": "If the person woke up with symptoms, the onset time is when they were last seen normal — record that time instead."
+      },
+      {
+        "id": "stroke_3",
+        "instruction": "Perform the FAST assessment: Face drooping, Arm weakness, Speech difficulty, Time to call 911.",
+        "detail": "Ask them to smile — is one side drooping? Raise both arms — does one drift down? Say a simple sentence — is speech slurred or strange? Any of these means stroke.",
+        "illustrationKey": "fast_assessment"
+      },
+      {
+        "id": "stroke_4",
+        "instruction": "Help the person lie down with their head and shoulders slightly elevated — about 30 degrees. Keep them still.",
+        "detail": "This position reduces strain on the brain. If the person is confused, speak calmly and slowly. Reassure them that help is on the way.",
+        "illustrationKey": "head_elevation"
+      },
+      {
+        "id": "stroke_5",
+        "instruction": "Do not give the person food, water, or any medications.",
+        "detail": "Stroke can affect swallowing and cause choking. Medication that thins the blood may be harmful depending on the type of stroke.",
+        "warning": "Even if the person asks for water or medication, do not give anything by mouth until paramedics or doctors assess them."
+      },
+      {
+        "id": "stroke_6",
+        "instruction": "Do not let the person sleep. Keep them awake and talking to you.",
+        "detail": "Loss of consciousness during a stroke is a sign of deterioration. Monitor and talk to them continuously."
+      },
+      {
+        "id": "stroke_7",
+        "instruction": "If the person is at home, unlock the front door so paramedics can enter quickly.",
+        "detail": "Paramedics may arrive when you are occupied with the patient. An unlocked door prevents delay."
+      },
+      {
+        "id": "stroke_8",
+        "instruction": "If the person becomes unconscious and stops breathing normally, begin CPR immediately.",
+        "warning": "Stroke can progress to cardiac arrest. If they stop breathing, CPR is the right response.",
+        "linkedEmergencyType": "cpr_adult"
+      }
+    ]
+  },
+
+  "seizure": {
+    "title": "Seizure Response",
+    "subtitle": "Active or recent seizure",
+    "steps": [
+      {
+        "id": "seizure_1",
+        "instruction": "Stay calm and stay with the person. Do not try to restrain them — let the seizure happen.",
+        "detail": "Restraining a person during a seizure can cause injury to them or to you. The body's movements during a seizure cannot be stopped.",
+        "warning": "Never hold the person down, never put anything in their mouth. The idea that people can swallow their tongue is a myth."
+      },
+      {
+        "id": "seizure_2",
+        "instruction": "Clear the area: move furniture, hard objects, and anything sharp or dangerous away from the person.",
+        "detail": "Focus on creating a safe empty space around them. Move a coffee table, push away chairs — anything within arm or leg reach.",
+        "illustrationKey": "seizure_clear"
+      },
+      {
+        "id": "seizure_3",
+        "instruction": "Protect the head: place something soft underneath it — a folded jacket, a pillow, your hands if nothing else is available.",
+        "detail": "The head is most vulnerable to injury during a seizure. Head protection is the most important physical action you can take.",
+        "illustrationKey": "protect_head"
+      },
+      {
+        "id": "seizure_4",
+        "instruction": "Note the time the seizure started. Use the timer below to track how long it lasts.",
+        "detail": "Seizure duration is medically critical. A seizure lasting more than 5 minutes is a medical emergency requiring 911.",
+        "timerSeconds": 300,
+        "isAutoAdvance": false,
+        "warning": "If the timer reaches 5 minutes and the seizure has not stopped, call 911 immediately if you have not already."
+      },
+      {
+        "id": "seizure_5",
+        "instruction": "Call 911 if: the seizure lasts more than 5 minutes, a second seizure begins, the person is not breathing after the seizure, there is an injury, or this is their first known seizure.",
+        "detail": "Also call 911 if the person is pregnant, diabetic, or in water. Any of these conditions makes 911 mandatory regardless of seizure length."
+      },
+      {
+        "id": "seizure_6",
+        "instruction": "When the convulsions stop, gently roll the person onto their side into the recovery position.",
+        "detail": "This prevents saliva or vomit from blocking the airway. Support their head and keep the airway clear.",
+        "illustrationKey": "recovery_position"
+      },
+      {
+        "id": "seizure_7",
+        "instruction": "Stay with the person until they are fully conscious and aware of their surroundings. This recovery period can take 10 to 30 minutes.",
+        "detail": "After a seizure, people are often confused, exhausted, and disoriented — this is called the postictal state. Speak calmly and reassure them.",
+        "warning": "If the person does not regain consciousness or does not return to their normal state within 30 minutes, call 911."
+      },
+      {
+        "id": "seizure_8",
+        "instruction": "If the person stops breathing after the seizure, begin CPR immediately.",
+        "warning": "Respiratory arrest after a seizure is rare but possible. If breathing stops, do not wait — begin CPR.",
+        "linkedEmergencyType": "cpr_adult"
+      }
+    ]
+  },
+
+  "general": {
+    "title": "Emergency First Aid",
+    "subtitle": "General emergency guidance",
+    "steps": [
+      {
+        "id": "general_1",
+        "instruction": "Check for danger before approaching: look for traffic, fire, electrical hazards, or anything that could harm you.",
+        "detail": "You cannot help someone else if you become injured yourself. A safe responder is always more valuable than a brave one.",
+        "illustrationKey": "scene_safety"
+      },
+      {
+        "id": "general_2",
+        "instruction": "Check for response: tap the person's shoulders and shout 'Are you okay?'",
+        "detail": "A responsive person can tell you what happened and guide your help. An unresponsive person may need CPR.",
+        "illustrationKey": "check_responsiveness"
+      },
+      {
+        "id": "general_3",
+        "instruction": "Call 911 if you believe this is a serious or life-threatening emergency. When in doubt, call.",
+        "detail": "Dispatchers are trained to help you determine the right response. Calling 911 and being told you do not need it is far better than not calling when you do."
+      },
+      {
+        "id": "general_4",
+        "instruction": "Keep the person still and calm. Do not move them unless they are in immediate danger from the environment.",
+        "detail": "Moving an injured person, especially one with a possible neck or back injury, can worsen the injury. Keep them where they are unless the environment is actively dangerous.",
+        "warning": "If you must move the person — for example, from a fire or traffic — support the head and neck and move them as a single unit."
+      },
+      {
+        "id": "general_5",
+        "instruction": "Monitor breathing and consciousness continuously until help arrives. Tell paramedics what happened, when symptoms started, and any changes you observed.",
+        "detail": "Your observations between the time of injury or collapse and the arrival of paramedics are medically important. Note everything you can."
+      }
+    ]
+  }
+}

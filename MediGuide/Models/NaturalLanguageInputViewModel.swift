@@ -16,6 +16,7 @@ final class NaturalLanguageInputViewModel: ObservableObject {
 
     private(set) var lastResult: LLMResponseParser.ParsedSymptoms?
 
+    var treeData: DecisionTreeData { engine.treeData }
     var hardOverrideIds: Set<String> { Set(engine.treeData.hardOverrides) }
 
     var isAnalyzeEnabled: Bool {
@@ -68,5 +69,10 @@ final class NaturalLanguageInputViewModel: ObservableObject {
 
     func dismissConfirmation() {
         state = .idle
+    }
+
+    // Called after photo analysis completes to inject visual findings into the engine.
+    func addVisualSymptom(_ id: String) {
+        engine.addSymptom(id)
     }
 }

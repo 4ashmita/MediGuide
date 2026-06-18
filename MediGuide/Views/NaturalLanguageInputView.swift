@@ -6,6 +6,7 @@ struct NaturalLanguageInputView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var emergencyCoordinator: EmergencyButtonCoordinator
     @FocusState private var isTextFocused: Bool
+    @State private var showPhotoCapture = false
 
     init(engine: TriageEngine) {
         _vm = StateObject(wrappedValue: NaturalLanguageInputViewModel(engine: engine))
@@ -31,6 +32,12 @@ struct NaturalLanguageInputView: View {
         .onAppear { isTextFocused = true }
         .overlay { if vm.isSending { sendingOverlay } }
         .allowsHitTesting(!vm.isSending)
+        .fullScreenCover(isPresented: $showPhotoCapture) {
+            PhotoCaptureView(treeData: vm.treeData, photoContext: .general) { symptomIds in
+                for id in symptomIds { vm.addVisualSymptom(id) }
+                appState.activeScreen = .results
+            }
+        }
         .sheet(isPresented: Binding(
             get: { vm.isConfirming },
             set: { if !$0 { vm.retryInput() } }
@@ -125,10 +132,11 @@ struct NaturalLanguageInputView: View {
                         .padding(.leading, 14)
                 }
                 Spacer()
-                if speechManager.isAvailable {
-                    micButton
-                        .padding(.trailing, 12)
+                HStack(spacing: 4) {
+                    cameraButton
+                    if speechManager.isAvailable { micButton }
                 }
+                .padding(.trailing, 12)
             }
             .frame(height: 36)
         }
@@ -150,6 +158,20 @@ struct NaturalLanguageInputView: View {
                 .foregroundStyle(Color(.placeholderText).opacity(0.75))
                 .fixedSize(horizontal: false, vertical: true)
         }
+    }
+
+    private var cameraButton: some View {
+        Button {
+            speechManager.stop()
+            isTextFocused = false
+            showPhotoCapture = true
+        } label: {
+            Image(systemName: "camera.circle.fill")
+                .font(.title2)
+                .foregroundStyle(.secondary)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Analyze a photo")
     }
 
     private var micButton: some View {

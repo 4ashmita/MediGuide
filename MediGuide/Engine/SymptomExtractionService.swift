@@ -27,7 +27,7 @@ final class SymptomExtractionService {
 
         switch apiResult {
         case .success(let jsonText):
-            if case .success(let parsed) = LLMResponseParser.parse(jsonText, treeData: treeData) {
+            if case .success(let parsed) = JSONResponseHandler.handleText(jsonText, treeData: treeData) {
                 return ExtractionResult(parsed: parsed, source: .api)
             }
             return fallback(for: userText)

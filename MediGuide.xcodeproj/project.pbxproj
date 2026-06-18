@@ -10,12 +10,28 @@
 		EE40B1BF2FE3D19300A5EE67 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EE40B1BE2FE3D19300A5EE67 /* Config.xcconfig */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EE40B3522FE4A02600A5EE67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE49D36D2F44E0AC0014D20A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE49D3742F44E0AC0014D20A;
+			remoteInfo = MediGuide;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		EE40B1BE2FE3D19300A5EE67 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		EE40B34E2FE4A02600A5EE67 /* MediGuideTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediGuideTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE49D3752F44E0AC0014D20A /* MediGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		EE40B34F2FE4A02600A5EE67 /* MediGuideTest */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MediGuideTest;
+			sourceTree = "<group>";
+		};
 		EE49D3772F44E0AC0014D20A /* MediGuide */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MediGuide;
@@ -24,6 +40,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		EE40B34B2FE4A02600A5EE67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE49D3722F44E0AC0014D20A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				EE49D3772F44E0AC0014D20A /* MediGuide */,
+				EE40B34F2FE4A02600A5EE67 /* MediGuideTest */,
 				EE49D3762F44E0AC0014D20A /* Products */,
 				EE40B1BE2FE3D19300A5EE67 /* Config.xcconfig */,
 			);
@@ -47,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				EE49D3752F44E0AC0014D20A /* MediGuide.app */,
+				EE40B34E2FE4A02600A5EE67 /* MediGuideTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -54,6 +79,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		EE40B34D2FE4A02600A5EE67 /* MediGuideTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE40B3542FE4A02600A5EE67 /* Build configuration list for PBXNativeTarget "MediGuideTest" */;
+			buildPhases = (
+				EE40B34A2FE4A02600A5EE67 /* Sources */,
+				EE40B34B2FE4A02600A5EE67 /* Frameworks */,
+				EE40B34C2FE4A02600A5EE67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE40B3532FE4A02600A5EE67 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE40B34F2FE4A02600A5EE67 /* MediGuideTest */,
+			);
+			name = MediGuideTest;
+			packageProductDependencies = (
+			);
+			productName = MediGuideTest;
+			productReference = EE40B34E2FE4A02600A5EE67 /* MediGuideTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EE49D3742F44E0AC0014D20A /* MediGuide */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE49D3802F44E0AE0014D20A /* Build configuration list for PBXNativeTarget "MediGuide" */;
@@ -86,6 +134,10 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					EE40B34D2FE4A02600A5EE67 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = EE49D3742F44E0AC0014D20A;
+					};
 					EE49D3742F44E0AC0014D20A = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -106,11 +158,19 @@
 			projectRoot = "";
 			targets = (
 				EE49D3742F44E0AC0014D20A /* MediGuide */,
+				EE40B34D2FE4A02600A5EE67 /* MediGuideTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EE40B34C2FE4A02600A5EE67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE49D3732F44E0AC0014D20A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,6 +182,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		EE40B34A2FE4A02600A5EE67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE49D3712F44E0AC0014D20A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,7 +198,60 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		EE40B3532FE4A02600A5EE67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE49D3742F44E0AC0014D20A /* MediGuide */;
+			targetProxy = EE40B3522FE4A02600A5EE67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		EE40B3552FE4A02600A5EE67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ashmita.MediGuideTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MediGuide.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MediGuide";
+			};
+			name = Debug;
+		};
+		EE40B3562FE4A02600A5EE67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Ashmita.MediGuideTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MediGuide.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MediGuide";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		EE49D37E2F44E0AE0014D20A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE40B1BE2FE3D19300A5EE67 /* Config.xcconfig */;
@@ -341,6 +461,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EE40B3542FE4A02600A5EE67 /* Build configuration list for PBXNativeTarget "MediGuideTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE40B3552FE4A02600A5EE67 /* Debug */,
+				EE40B3562FE4A02600A5EE67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EE49D3702F44E0AC0014D20A /* Build configuration list for PBXProject "MediGuide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

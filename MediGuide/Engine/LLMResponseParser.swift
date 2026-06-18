@@ -10,7 +10,7 @@ enum LLMResponseParser {
         let summary: String
     }
 
-    /// Full pipeline: parse JSON → validate identifiers → map to engine types.
+    /// Full pipeline: parse JSON → validate schema → validate identifiers → map to engine types.
     static func parse(_ jsonText: String, treeData: DecisionTreeData) -> Result<ParsedSymptoms, APIError> {
         guard let raw = decodeJSON(jsonText) else {
             return .failure(.invalidResponse)
@@ -19,13 +19,14 @@ enum LLMResponseParser {
         let knownSymptoms  = Set(treeData.symptomWeights.keys)
         let knownModifiers = Set(treeData.modifierWeights.keys)
 
-        let unknownSymptoms  = raw.symptoms.filter  { !knownSymptoms.contains($0) }
-        let unknownModifiers = raw.modifiers.filter { !knownModifiers.contains($0) }
-
-        guard unknownSymptoms.isEmpty && unknownModifiers.isEmpty else {
-            return .failure(.validationFailed(
-                reason: "Unknown IDs — symptoms: \(unknownSymptoms), modifiers: \(unknownModifiers)"
-            ))
+        switch SymptomIDValidator.validate(
+            symptomIds: raw.symptoms,
+            modifierIds: raw.modifiers,
+            knownSymptoms: knownSymptoms,
+            knownModifiers: knownModifiers
+        ) {
+        case .failure(let error): return .failure(error)
+        case .success: break
         }
 
         let symptoms = raw.symptoms.compactMap { id -> Symptom? in
@@ -49,7 +50,6 @@ enum LLMResponseParser {
     // MARK: - Private
 
     private static func decodeJSON(_ text: String) -> SymptomExtractionResult? {
-        // Claude sometimes wraps output in a code fence even when told not to — strip it
         let cleaned = text
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: "```json", with: "")
@@ -57,16 +57,17 @@ enum LLMResponseParser {
             .trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard let data = cleaned.data(using: .utf8),
-              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            return nil
-        }
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else { return nil }
 
+        let f = OutputSchemaDefinition.Fields.self
         return SymptomExtractionResult(
-            symptoms:             json[OutputSchemaDefinition.Fields.symptoms]             as? [String] ?? [],
-            modifiers:            json[OutputSchemaDefinition.Fields.modifiers]            as? [String] ?? [],
-            hardOverrideDetected: json[OutputSchemaDefinition.Fields.hardOverrideDetected] as? Bool ?? false,
-            uncertain:            json[OutputSchemaDefinition.Fields.uncertain]            as? Bool ?? false,
-            summary:              json[OutputSchemaDefinition.Fields.summary]              as? String ?? ""
+            symptoms:             FieldExtractor.optionalStringArray(f.symptoms,  from: json),
+            modifiers:            FieldExtractor.optionalStringArray(f.modifiers, from: json),
+            hardOverrideDetected: FieldExtractor.optionalBool(f.hardOverrideDetected, from: json),
+            uncertain:            FieldExtractor.optionalBool(f.uncertain,            from: json),
+            summary:              ResponseSanitizer.sanitize(
+                                      FieldExtractor.optionalString(f.summary, from: json))
         )
     }
 }
